@@ -22,6 +22,10 @@
 License Manager Client Library Release Notes
 ============================================
 
+Version 0.0.12 11 Jul 2019
+--------------------------
+* License JSON schema with required fields `ACUMOS-3197 <https://jira.acumos.org/browse/ACUMOS-3197>`_
+
 Version 0.0.11 08 Jul 2019
 --------------------------
 * Moved LMCL from security-verification to license-manager repo `ACUMOS-3189 <https://jira.acumos.org/browse/ACUMOS-3189>`_
