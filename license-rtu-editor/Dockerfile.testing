@@ -39,7 +39,7 @@ WORKDIR /app
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm --max-old-space-size=4092 install
+RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
