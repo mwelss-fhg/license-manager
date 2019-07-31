@@ -137,40 +137,6 @@
             </image>
           </images>
         </configuration>
-        <executions>
-          <execution>
-            <id>run-build</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <!-- "build" should be used to create the images with the
-              artifact -->
-              <goal>build</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>run-tests</id>
-            <phase>integration-test</phase>
-            <goals>
-              <!-- "build" should be used to create the images with the
-              artifact -->
-              <goal>start</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>stop-tests-run</id>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>stop</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>clean-image</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>remove</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

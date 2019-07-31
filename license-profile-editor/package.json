@@ -4,6 +4,7 @@
   "scripts": {
     "-preinstall": "curl -LO  https://github.com/earlyster/Angular6-json-schema-form/releases/download/8.0.0-alpha/angular6-json-schema-form.tgz",
     "ng": "ng",
+    "prestart": "cp ../license-manager-client-library/src/main/resources/license.schema.json src/assets",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -26,7 +27,7 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
-    "@earlyster/angular6-json-schema-form": "^8.1.0-alpha",
+    "@earlyster/angular6-json-schema-form": "^8.1.1-alpha",
     "@webcomponents/custom-elements": "^1.2.4",
     "ajv": "^6.10.2",
     "document-register-element": "^1.7.2",

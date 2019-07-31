@@ -2,26 +2,23 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "modelLicenses": {
+    "licenseProfiles": {
       "type": "array",
       "items": {
         "type": "object",
         "required": [
           "keyword",
-          "intro",
+          "licenseName",
           "copyright"
         ],
         "properties": {
           "keyword": {
             "type": "string"
           },
+          "licenseName": {
+            "type": "string"
+          },
           "intro": {
-            "type": "string"
-          },
-          "URL": {
-            "type": "string"
-          },
-          "warranty": {
             "type": "string"
           },
           "copyright": {
@@ -33,7 +30,8 @@
             ],
             "properties": {
               "year": {
-                "type": "integer"
+                "type": "integer",
+                "default": 2019
               },
               "company": {
                 "type": "string"
@@ -43,58 +41,32 @@
               }
             }
           },
-          "swidTag": {
+          "softwareType": {
             "type": "string"
           },
-          "modelId": {
+          "companyName": {
             "type": "string"
           },
-          "modelLimits": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "desc": {
-                  "type": "string"
-                },
-                "limit": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string"
-                    },
-                    "value": {
-                      "type": "string"
-                    }
-                  }
-                }
+          "contact": {
+            "type": "object",
+            "required": [
+              "name",
+              "URL",
+              "email"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "URL": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
               }
             }
-          }
-        }
-      }
-    },
-    "contentLicenses": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "keyword"
-        ],
-        "properties": {
-          "keyword": {
-            "type": "string"
           },
-          "path": {
-            "type": "string"
-          },
-          "source": {
+          "additionalInfo": {
             "type": "string"
           }
         }
@@ -102,6 +74,6 @@
     }
   },
   "required": [
-    "modelLicenses"
+    "licenseProfiles"
   ]
 }

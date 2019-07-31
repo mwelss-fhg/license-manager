@@ -40,6 +40,7 @@ export class LicenseRtuEditorComponent implements OnInit {
   jsonData: any = {};
   downloadType = 'txt';
   jsonFormOptions: any;
+  isValid: any;
 
 
   constructor(private service: LicenseRtuMetaService) { }
@@ -50,58 +51,118 @@ export class LicenseRtuEditorComponent implements OnInit {
       this.jsonSchema = data;
     });
 
+
     this.formLayout = [
       { type: 'flex', 'flex-flow': 'row wrap' },
       { key: 'uid' },
+      'target',
       {
-        key: 'permission', type: 'fieldset',
-        items: {
+        key: 'assigner',
+        type: 'fieldset',
+        items: [
+          'assigner.vcard:fn',
+          'assigner.uid',
+          'assigner.vcard:hasEmail',
+
+        ]
+      },
+      {
+        key: 'assignee',
+        type: 'fieldset',
+        items: [
+          'assignee.vcard:fn',
+          'assignee.uid',
+          'assignee.vcard:hasEmail',
+        ]
+      },
+      {
+        key: 'permission',
+        type: 'fieldset',
+        items: [{
           type: 'div',
           displayFlex: true,
           'flex-direction': 'row',
           items: [
-            'permission[].target',
             {
-              key: 'permission[].assigner',
-              type: 'fieldset',
+              key: 'permission[].action',
+              type: 'array',
               items: [
-                'permission[].assigner.uid',
-                'permission[].assigner.vcard:fn',
-                'permission[].assigner.vcard:hasEmail',
-
+                {
+                  key: 'permission[].action[].action'
+                },
+              ]
+            }, {
+              key: 'permission[].constraint',
+              type: 'array',
+              listItems: 0,
+              items: [
+                {
+                  key: 'permission[].constraint[].leftOperand'
+                },
+                {
+                  key: 'permission[].constraint[].operator'
+                },
+                {
+                  key: 'permission[].constraint[].rightOperand',
+                  type: 'fieldset',
+                  items: [
+                    {
+                      key: 'permission[].constraint[].rightOperand.@value'
+                    }, {
+                      key: 'permission[].constraint[].rightOperand.@type'
+                    }
+                  ]
+                },
               ]
             },
-            {
-              key: 'permission[].assignee',
-              type: 'fieldset',
-              items: [
-                'permission[].assignee.uid',
-                'permission[].assignee.vcard:fn',
-                'permission[].assignee.vcard:hasEmail',
-              ]
-            },
-            {
-            key: 'permission[].action',
-            type: 'array',
-            items: [
-              { key: 'permission[].action[].action'
-              },
-              { key: 'permission[].action[].refinement'
-              }
-            ]              // type: 'div',
-              // displayFlex: true,
-              // 'flex-direction': 'row',
-              // items: [
-              //   {key: 'permission[].action'},
-
-              //   // 'permission[].action.refinement'
-
-              // ]
-
-            },
-            'permission[].constraint'
           ]
-        }
+        }]
+      },
+      {
+        key: 'prohibition',
+        type: 'fieldset',
+        items: [{
+          type: 'div',
+          displayFlex: true,
+          'flex-direction': 'row',
+          items: [
+            {
+              key: 'prohibition[].action',
+              type: 'array',
+              items: [
+                {
+                  key: 'prohibition[].action[].action'
+                },
+              ]
+            }, {
+              key: 'prohibition[].constraint',
+              type: 'array',
+              listItems: 0,
+              items: [
+                {
+                  key: 'prohibition[].constraint[].leftOperand'
+                },
+                {
+                  key: 'prohibition[].constraint[].operator'
+                },
+                {
+                  key: 'prohibition[].constraint[].rightOperand',
+                  type: 'fieldset',
+                  items: [
+                    {
+                      key: 'prohibition[].constraint[].rightOperand.@value'
+                    }, {
+                      key: 'prohibition[].constraint[].rightOperand.@type'
+                    }
+                  ]
+                },
+              ]
+            }
+          ]
+        }]
+      },
+      {
+        key: 'conflict'
       }
     ];
   }
@@ -119,7 +180,7 @@ export class LicenseRtuEditorComponent implements OnInit {
     // save as json
     const mimeType = { type: 'application/json' };
     const data = JSON.stringify(this.jsonData);
-    const fileName  = 'rtu.json';
+    const fileName = 'rtu.json';
 
     this.downloadFile(data, mimeType, fileName);
   }

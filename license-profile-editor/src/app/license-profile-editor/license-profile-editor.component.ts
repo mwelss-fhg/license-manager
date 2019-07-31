@@ -30,7 +30,6 @@ import { JsonSchemaFormComponent } from '@earlyster/angular6-json-schema-form';
 })
 export class LicenseProfileEditorComponent implements OnInit {
 
-  title = 'Acumos License Editor';
   jsonSchema: any;
   formLayout: any = {};
   jsonData: any = {};
@@ -53,8 +52,11 @@ export class LicenseProfileEditorComponent implements OnInit {
       //  debug: true, // Don't show inline debugging information
       //   loadExternalAssets: true, // Load external css and JavaScript for frameworks
       //   returnEmptyFields: false, // Don't return values for empty input fields
-      //   setSchemaDefaults: true, // Always use schema defaults for empty fields
-        defautWidgetOptions: { feedback: true }, // Show inline feedback icons
+        setSchemaDefaults: true, // Always use schema defaults for empty fields
+        defautWidgetOptions: {
+          feedback: true,
+          listItems: 0 // Number of list items to initially add to arrays with no default value
+        }, // Show inline feedback icons
       };
 
       this.jsonSchema = data;
@@ -62,51 +64,60 @@ export class LicenseProfileEditorComponent implements OnInit {
       this.formLayout = [{
         type: 'flex', 'flex-flow': 'row wrap'
       }, {
-        key: 'modelLicenses',
+        key: 'licenseProfiles',
         type: 'array',
         items: [
-          'modelLicenses[].keyword',
-          'modelLicenses[].intro',
           {
-            key: 'modelLicenses[].URL',
-            title: 'URL'
+            key: 'licenseProfiles[].keyword',
+            title: 'License Keyword/Identifier'
           },
-          'modelLicenses[].modelId',
-          'modelLicenses[].swidTag',
-          'modelLicenses[].warranty',
           {
-            key: 'modelLicenses[].copyright',
+            key: 'licenseProfiles[].licenseName',
+            title: 'License Name'
+          },
+          {
+            key: 'licenseProfiles[].intro',
+            title: 'Introduction'
+          },
+          {
+            key: 'licenseProfiles[].softwareType',
+            title: 'Software/Artifact Type'
+          },
+          {
+            key: 'licenseProfiles[].companyName',
+            title: 'Company Name'
+          },
+          {
+            key: 'licenseProfiles[].copyright',
             type: 'fieldset',
             items: [
               {
-                key: 'modelLicenses[].copyright.year',
+                key: 'licenseProfiles[].copyright.year',
                 type: 'number'
               },
-              'modelLicenses[].copyright.company',
-              'modelLicenses[].copyright.suffix'
+              'licenseProfiles[].copyright.company',
+              'licenseProfiles[].copyright.suffix'
             ]
           },
           {
-            key: 'modelLicenses[].modelLimits',
-            type: 'array',
+            key: 'licenseProfiles[].contact',
+            type: 'fieldset',
             items: [
-              'modelLicenses[].modelLimits[].id',
-              'modelLicenses[].modelLimits[].name',
-              'modelLicenses[].modelLimits[].desc',
-              'modelLicenses[].modelLimits[].limit.type',
-              'modelLicenses[].modelLimits[].limit.value'
+              {
+                key: 'licenseProfiles[].contact.name'
+              },
+              {
+                key: 'licenseProfiles[].contact.URL',
+                title: 'URL'
+              },
+              'licenseProfiles[].contact.email'
             ]
+          },
+          {
+            key: 'licenseProfiles[].additionalInfo',
+            title: 'Additional Information',
+            type: 'textarea'
           }]
-        },
-        {
-          key: 'contentLicenses',
-          type: 'array',
-          listItems: 0,
-          items: [
-            'contentLicenses[].keyword',
-            'contentLicenses[].path',
-            'contentLicenses[].source'
-          ]
         }
       ];
 
@@ -118,7 +129,7 @@ export class LicenseProfileEditorComponent implements OnInit {
     this.isValid = isValid;
   }
 
-  @ViewChild(JsonSchemaFormComponent, {static: false})
+  @ViewChild(JsonSchemaFormComponent, { static: false })
   set licenseProfileFormCmp(cmp: JsonSchemaFormComponent) {
     if (!this.licenseProfileForm && cmp) {
       this.licenseProfileForm = cmp;

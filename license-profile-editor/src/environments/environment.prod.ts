@@ -19,5 +19,6 @@
  */
 
 export const environment = {
-  production: true
+  production: true,
+  schemaUrl: `https://raw.githubusercontent.com/acumos/license-manager/master/license-manager-client-library/src/main/resources/license.schema.json`
 };
