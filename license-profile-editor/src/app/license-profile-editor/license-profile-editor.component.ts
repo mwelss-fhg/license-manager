@@ -49,9 +49,9 @@ export class LicenseProfileEditorComponent implements OnInit {
 
       this.jsonFormOptions = {
         addSubmit: false, // Add a submit button if layout does not have one
-      //  debug: true, // Don't show inline debugging information
-      //   loadExternalAssets: true, // Load external css and JavaScript for frameworks
-      //   returnEmptyFields: false, // Don't return values for empty input fields
+        //  debug: true, // Don't show inline debugging information
+        //   loadExternalAssets: true, // Load external css and JavaScript for frameworks
+        //   returnEmptyFields: false, // Don't return values for empty input fields
         setSchemaDefaults: true, // Always use schema defaults for empty fields
         defautWidgetOptions: {
           feedback: true,
@@ -63,62 +63,59 @@ export class LicenseProfileEditorComponent implements OnInit {
 
       this.formLayout = [{
         type: 'flex', 'flex-flow': 'row wrap'
-      }, {
-        key: 'licenseProfiles',
-        type: 'array',
+      },
+      {
+        key: 'keyword',
+        title: 'License Keyword/Identifier'
+      },
+      {
+        key: 'licenseName',
+        title: 'License Name'
+      },
+      {
+        key: 'intro',
+        title: 'Introduction'
+      },
+      {
+        key: 'softwareType',
+        title: 'Software/Artifact Type'
+      },
+      {
+        key: 'companyName',
+        title: 'Company Name'
+      },
+      {
+        key: 'copyright',
+        type: 'fieldset',
         items: [
           {
-            key: 'licenseProfiles[].keyword',
-            title: 'License Keyword/Identifier'
+            key: 'copyright.year',
+            type: 'number'
+          },
+          'copyright.company',
+          'copyright.suffix'
+        ]
+      },
+      {
+        key: 'contact',
+        type: 'fieldset',
+        items: [
+          {
+            key: 'contact.name'
           },
           {
-            key: 'licenseProfiles[].licenseName',
-            title: 'License Name'
+            key: 'contact.URL',
+            title: 'URL'
           },
-          {
-            key: 'licenseProfiles[].intro',
-            title: 'Introduction'
-          },
-          {
-            key: 'licenseProfiles[].softwareType',
-            title: 'Software/Artifact Type'
-          },
-          {
-            key: 'licenseProfiles[].companyName',
-            title: 'Company Name'
-          },
-          {
-            key: 'licenseProfiles[].copyright',
-            type: 'fieldset',
-            items: [
-              {
-                key: 'licenseProfiles[].copyright.year',
-                type: 'number'
-              },
-              'licenseProfiles[].copyright.company',
-              'licenseProfiles[].copyright.suffix'
-            ]
-          },
-          {
-            key: 'licenseProfiles[].contact',
-            type: 'fieldset',
-            items: [
-              {
-                key: 'licenseProfiles[].contact.name'
-              },
-              {
-                key: 'licenseProfiles[].contact.URL',
-                title: 'URL'
-              },
-              'licenseProfiles[].contact.email'
-            ]
-          },
-          {
-            key: 'licenseProfiles[].additionalInfo',
-            title: 'Additional Information',
-            type: 'textarea'
-          }]
-        }
+          'contact.email'
+        ]
+      },
+      {
+        key: 'additionalInfo',
+        title: 'Additional Information',
+        type: 'textarea'
+      }
+
       ];
 
     });

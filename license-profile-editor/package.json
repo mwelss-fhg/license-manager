@@ -4,7 +4,7 @@
   "scripts": {
     "-preinstall": "curl -LO  https://github.com/earlyster/Angular6-json-schema-form/releases/download/8.0.0-alpha/angular6-json-schema-form.tgz",
     "ng": "ng",
-    "prestart": "cp ../license-manager-client-library/src/main/resources/license.schema.json src/assets",
+    "prestart": "cp ../license-manager-client-library/src/main/resources/license-profile.schema.json src/assets",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",

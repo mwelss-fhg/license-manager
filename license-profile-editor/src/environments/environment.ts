@@ -24,7 +24,7 @@
 
 export const environment = {
   production: false,
-  schemaUrl: `/assets/license.schema.json`
+  schemaUrl: `/assets/license-profile.schema.json`
 
 };
 

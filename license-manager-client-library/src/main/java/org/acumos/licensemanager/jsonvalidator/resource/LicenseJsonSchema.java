@@ -40,7 +40,7 @@ public final class LicenseJsonSchema {
   private LicenseJsonSchema() {}
 
   /** Name of the json schema for license. */
-  private static final String JSONSCHEMANAME = "/license.schema.json";
+  private static final String JSONSCHEMANAME = "/license-profile.schema.json";
 
   /** JsonSchema object for validation of license schema. */
   private static JsonSchema jsonSchema;

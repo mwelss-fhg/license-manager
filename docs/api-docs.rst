@@ -96,6 +96,6 @@ Example api call:
 
 Learn more in `LicenseJsonValidationResults java docs <https://javadocs.acumos.org/org.acumos.license-manager/master/org/acumos/licensemanager/jsonvalidator/LicenseJsonValidator.html>`_
 
-`Json Schema <https://raw.githubusercontent.com/acumos/license-manager/master/license-manager-client-library/src/main/resources/license.schema.json>`_
+`Json Schema <https://raw.githubusercontent.com/acumos/license-manager/master/license-manager-client-library/src/main/resources/license-profile.schema.json>`_
 
 

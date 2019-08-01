@@ -1,20 +1,16 @@
 {
-  "licenseProfiles": [
-    {
-      "keyword": "Apache-2.0",
-      "licenseName": "Apache 2.0",
-      "copyright": {
-        "year": 2019,
-        "company": "Company A",
-        "suffix": "A Intellectual Property. All rights reserved."
-      },
-      "softwareType": "Acumos Ai/ML Model",
-      "companyName": "Acumos",
-      "contact": {
-        "name": "Acumos HelpDesk",
-        "URL": "https://marketplace.acumos.org",
-        "email": "contact@.acumos.org"
-      }
-    }
-  ]
+  "keyword": "Apache-2.0",
+  "licenseName": "Apache 2.0",
+  "copyright": {
+    "year": 2019,
+    "company": "Company A",
+    "suffix": "A Intellectual Property. All rights reserved."
+  },
+  "softwareType": "Acumos Ai/ML Model",
+  "companyName": "Acumos",
+  "contact": {
+    "name": "Acumos HelpDesk",
+    "URL": "https://marketplace.acumos.org",
+    "email": "contact@.acumos.org"
+  }
 }

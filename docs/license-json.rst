@@ -85,7 +85,7 @@ Schema for License.json (wip)
 This is a schema that we have in progress. In Clio release
 the schema will change.
 
-.. literalinclude:: ../src/main/resources/license.schema.json
+.. literalinclude:: ../src/main/resources/license-profile.schema.json
    :language: json
 
 
