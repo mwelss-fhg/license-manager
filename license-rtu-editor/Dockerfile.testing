@@ -32,7 +32,7 @@ USER pptruser
 # Create app directory
 WORKDIR /app
 # # Puppeteer v1.12.2 works with Chromium 73.
-# RUN yarn add puppeteer@1.12.2
+RUN npm install --global puppeteer@1.12.2
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
