@@ -18,18 +18,15 @@
 .. ===============LICENSE_END==================================================
 ..
 
-==============================
-License Manager Client Library
-==============================
+============================================
+License Profile Editor Release Notes
+============================================
 
-.. toctree::
-       :maxdepth: 2
+Version 0.0.1, 12 August 2019
+-----------------------------
 
-       release-notes.rst
-       release-notes-license-profile-editor.rst
-       release-notes-license-rtu-editor.rst
-       api-docs.rst
-       developer-guide.rst
-       user-guide.rst
-
-
+* Support loading as iframe doc `ACUMOS-3280 <https://jira.acumos.org/browse/ACUMOS-3280>`_
+* Support using as web component `ACUMOS-3280 <https://jira.acumos.org/browse/ACUMOS-3280>`_
+* Changes to support only single license profile `ACUMOS-3307 <https://jira.acumos.org/browse/ACUMOS-3307>`_
+* Form editor and schema improvements `ACUMOS-3279 <https://jira.acumos.org/browse/ACUMOS-3279>`_
+* License Profile Editor for creating license profiles `ACUMOS-3200 <https://jira.acumos.org/browse/ACUMOS-3200>`_
