@@ -21,11 +21,11 @@
 	===============LICENSE_END=========================================================
 	-->
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.acumos.license-manager-client</groupId>
+	<groupId>org.acumos.license-manager</groupId>
 	<artifactId>license-manager-parent</artifactId>
 	<version>0</version>
 	<packaging>pom</packaging>
-	<name>License Management Parent Project</name>
+	<name>Acumos License Management Client</name>
 	<description>Acumos License Management Project for verifying rights to use</description>
 	<modules>
 		<!-- Child modules do NOT name this parent. -->
