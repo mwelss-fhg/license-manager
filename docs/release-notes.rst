@@ -22,6 +22,11 @@
 License Manager Client Library Release Notes
 ============================================
 
+Version 0.0.13 11 Jul 2019
+--------------------------
+* No change - but release along with other sub-projects - License
+  Profile and RTU Editors
+
 Version 0.0.12 11 Jul 2019
 --------------------------
 * License JSON schema with required fields `ACUMOS-3197 <https://jira.acumos.org/browse/ACUMOS-3197>`_

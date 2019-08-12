@@ -18,18 +18,13 @@
 .. ===============LICENSE_END==================================================
 ..
 
-==============================
-License Manager Client Library
-==============================
+============================================
+License RTU Editor Release Notes
+============================================
 
-.. toctree::
-       :maxdepth: 2
+Version 0.0.1, 12 August 2019
+-----------------------------
 
-       release-notes.rst
-       release-notes-license-profile-editor.rst
-       release-notes-license-rtu-editor.rst
-       api-docs.rst
-       developer-guide.rst
-       user-guide.rst
-
-
+* Support loading as iframe doc `ACUMOS-3280 <https://jira.acumos.org/browse/ACUMOS-3280>`_
+* Support using as web component `ACUMOS-3280 <https://jira.acumos.org/browse/ACUMOS-3280>`_
+* License RTU Editor for creating RTU `ACUMOS-3079 <https://jira.acumos.org/browse/ACUMOS-3079>`_
