@@ -186,14 +186,10 @@ export class LicenseProfileEditorComponent implements OnInit {
   saveLicenseProfile() {
     const formData = this.licenseProfileForm.jsf.validData;
     // - post license profile JSON data
-    // - close window
     this.sendMessage({
       key: 'output',
       value: formData
     });
-    if (this.mode === 'iframe') {
-      window.close();
-    }
   }
 
   cancelLicenseProfile() {
