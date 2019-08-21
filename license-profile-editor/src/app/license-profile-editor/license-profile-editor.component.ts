@@ -75,6 +75,11 @@ export class LicenseProfileEditorComponent implements OnInit {
         this.jsonData = event.data.value;
       }
     });
+    console.log('license-profile-editor: iframe init - send message');
+    this.sendMessage({
+      key: 'init_iframe',
+      value: ''
+    });
   }
 
   // Send a message to the parent
