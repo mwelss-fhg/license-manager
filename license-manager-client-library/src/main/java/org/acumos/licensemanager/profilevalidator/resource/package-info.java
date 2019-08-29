@@ -19,4 +19,4 @@
  */
 
 /** Resources required for supporting json validator. */
-package org.acumos.licensemanager.jsonvalidator.resource;
+package org.acumos.licensemanager.profilevalidator.resource;

@@ -18,5 +18,8 @@
  * ===============LICENSE_END==================================================
  */
 
-/** License json validation. */
-package org.acumos.licensemanager.jsonvalidator;
+/**
+ * Validates the structure of the license profile json document against the license profile json
+ * schema.
+ */
+package org.acumos.licensemanager.profilevalidator;

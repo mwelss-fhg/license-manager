@@ -18,45 +18,43 @@
  * ===============LICENSE_END==================================================
  */
 
-package org.acumos.licensemanager.jsonvalidator.exceptions;
+package org.acumos.licensemanager.profilevalidator.exceptions;
 
 import java.io.Serializable;
+import org.springframework.web.client.RestClientResponseException;
 
-/** When getting, updating, or creating a right to use this exception captures the issue. */
-public class LicenseJsonException extends Exception implements Serializable {
-
-  /** Internal exception being wrapped by RTU exception. */
-  private final Exception jsonParseException;
-
-  /**
-   * Creates exception for any RTU operation error.
-   *
-   * @param message provide text for message
-   * @param restException rest client response error
-   */
-  public LicenseJsonException(final String message, final Exception restException) {
-    super(message);
-    jsonParseException = restException;
-  }
-
-  /**
-   * Creates exception for any RTU operation error.
-   *
-   * @param message provide text for message
-   */
-  public LicenseJsonException(final String message) {
-    super(message);
-    jsonParseException = null;
-  }
-
-  /**
-   * Getter for the field <code>jsonParseException</code>.
-   *
-   * @return the jsonParseException
-   */
-  public final Exception getJsonParseException() {
-    return jsonParseException;
-  }
+/** Exception to abort license profile processing and report failure. */
+public class LicenseProfileException extends Exception implements Serializable {
 
   private static final long serialVersionUID = -7896327154019469541L;
+
+  /**
+   * Creates exception for any License Json procesing error.
+   *
+   * @param message provide text for message
+   */
+  public LicenseProfileException(final String message) {
+    super(message);
+  }
+
+  /**
+   * Creates exception for any License Json procesing error.
+   *
+   * @param message provide text for message
+   * @param exception rest client response error
+   */
+  public LicenseProfileException(final String message, final Exception exception) {
+    super(message, exception);
+  }
+
+  /**
+   * Creates exception for any License Json procesing error.
+   *
+   * @param message provide text for message
+   * @param exception rest client response error
+   */
+  public LicenseProfileException(
+      final String message, final RestClientResponseException exception) {
+    super(message, exception);
+  }
 }
