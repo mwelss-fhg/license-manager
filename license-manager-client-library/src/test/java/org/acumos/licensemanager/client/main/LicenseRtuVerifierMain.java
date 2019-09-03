@@ -22,15 +22,14 @@ package org.acumos.licensemanager.client.main;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
-import org.acumos.cds.client.CommonDataServiceRestClientImpl;
-import org.acumos.cds.client.ICommonDataServiceRestClient;
-import org.acumos.licensemanager.client.LicenseVerifier;
-import org.acumos.licensemanager.client.model.ILicenseVerification;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import org.acumos.licensemanager.client.model.LicenseAction;
+import org.acumos.licensemanager.client.model.LicenseRtuVerification;
 import org.acumos.licensemanager.client.model.VerifyLicenseRequest;
+import org.acumos.licensemanager.client.rtu.LicenseRtuVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.HttpStatusCodeException;
 
 /**
  * License Verify Main program. Input to main program: String solutionId String userId
@@ -38,31 +37,25 @@ import org.springframework.web.client.HttpStatusCodeException;
  * <p>Envirionment variables required to point to CCDS api ACUMOS_CDS_HOST ACUMOS_CDS_PORT
  * ACUMOS_CDS_USER ACUMOS_CDS_PASSWORD
  */
-public class LicenseVerifyMain {
+public class LicenseRtuVerifierMain {
 
   /** Logger for any exception handling. */
   private static final Logger LOGGER =
       LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /** Common data service host name. Set as an environment variable ACUMOS_CDS_HOST. */
-  private static final String HOSTNAME = System.getenv("ACUMOS_CDS_HOST");
+  private static final String LUM_HOSTNAME = System.getenv("LUM_HOST");
 
   /** Common data context path. */
-  private static final String CONTEXT_PATH = "/ccds";
+  private static final String LUM_CONTEXT_PATH = "";
   /**
    * Common data service port -- may require NodePort setup if using K8. Set as an environment
    * variable ACUMOS_CDS_PORT.
    */
-  private static final int PORT = Integer.parseInt(System.getenv("ACUMOS_CDS_PORT"));
-
-  /** Common data service user name. Set as an environment variable ACUMOS_CDS_USER. */
-  private static final String USER_NAME = System.getenv("ACUMOS_CDS_USER");
-
-  /** Common data service password. Set as an environment variable ACUMOS_CDS_PASSWORD. */
-  private static final String PASSWORD = System.getenv("ACUMOS_CDS_PASSWORD");
+  private static final int LUM_PORT = Integer.parseInt(System.getenv("LUM_PORT"));
 
   /** No not allow for utility class from being instantiated. */
-  protected LicenseVerifyMain() {
+  protected LicenseRtuVerifierMain() {
     // prevents calls from subclass
     throw new UnsupportedOperationException();
   }
@@ -75,24 +68,22 @@ public class LicenseVerifyMain {
    */
   public static void main(final String[] args) throws Exception {
 
-    URL url = new URL("http", HOSTNAME, PORT, CONTEXT_PATH);
-    LOGGER.info("createClient: URL is {}", url);
-    ICommonDataServiceRestClient client =
-        CommonDataServiceRestClientImpl.getInstance(url.toString(), USER_NAME, PASSWORD);
+    URL lumServer = new URL("http", LUM_HOSTNAME, LUM_PORT, LUM_CONTEXT_PATH);
 
-    try {
-      LicenseVerifier licenseVerifier = new LicenseVerifier(client);
-      VerifyLicenseRequest verifyRequest =
-          new VerifyLicenseRequest(
-              new LicenseAction[] {LicenseAction.DOWNLOAD, LicenseAction.DEPLOY}, args[0], args[1]);
-      ILicenseVerification licenseRes = licenseVerifier.verifyRtu(verifyRequest);
-      System.out.println("Verified rtu");
-      System.out.println("deploy allowed? " + licenseRes.isAllowed(LicenseAction.DEPLOY));
-      System.out.println("download allowed? " + licenseRes.isAllowed(LicenseAction.DOWNLOAD));
-
-    } catch (HttpStatusCodeException ex) {
-      LOGGER.error("basicSequenceDemo failed, server reports: {}", ex.getResponseBodyAsString());
-      throw ex;
+    LicenseRtuVerifier licenseVerifier = new LicenseRtuVerifier(lumServer.toExternalForm());
+    VerifyLicenseRequest verifyRequest =
+        new VerifyLicenseRequest(
+            LicenseAction.DOWNLOAD, args[0], args[1], args[2], UUID.randomUUID().toString());
+    CompletableFuture<LicenseRtuVerification> licenseResPromise =
+        licenseVerifier.verifyRtu(verifyRequest);
+    LicenseRtuVerification licenseRes = licenseResPromise.get();
+    System.out.println("Verified rtu");
+    if (licenseRes.getApiException() != null) {
+      System.err.println(licenseRes.getApiException().getMessage());
     }
+    System.out.println("deploy allowed? " + licenseRes.isAllowed(LicenseAction.DEPLOY));
+    System.out.println("download allowed? " + licenseRes.isAllowed(LicenseAction.DOWNLOAD));
+
+    System.exit(0);
   }
 }
