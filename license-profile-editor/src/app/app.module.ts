@@ -26,7 +26,7 @@ import { createCustomElement } from '@angular/elements';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatCardModule, MatToolbarModule, MatInputModule, MatGridListModule } from '@angular/material';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MaterialDesignFrameworkModule } from '@earlyster/angular6-json-schema-form';
@@ -45,7 +45,14 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialDesignFrameworkModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        appearance: 'outline'
+      }
+    }
+  ],
   entryComponents: [LicenseProfileEditorComponent]
 })
 export class AppModule {
