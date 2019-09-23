@@ -22,6 +22,10 @@
 License Manager Client Library Release Notes
 ============================================
 
+Version 0.0.15 19 Sept 2019
+---------------------------
+* Adding rtuRequired flag to profile to activate lum entitlement requirement during software registration `ACUMOS-3458 <https://jira.acumos.org/browse/ACUMOS-3458>`_
+
 Version 0.0.14 3 Sept 2019
 --------------------------
 * LicenseProfile APIs - getTemplate(s) `ACUMOS-3387 <https://jira.acumos.org/browse/ACUMOS-3387>`_
