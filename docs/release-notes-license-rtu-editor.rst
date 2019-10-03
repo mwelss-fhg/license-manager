@@ -22,6 +22,10 @@
 License RTU Editor Release Notes
 ============================================
 
+Version 0.0.5 03 Oct 2019
+--------------------------
+* License RTU editor - fix layout path - `ACUMOS-3494 <https://jira.acumos.org/browse/ACUMOS-3494>`_
+
 Version 0.0.4 01 Oct 2019
 --------------------------
 * Support to process & render diff versions of license
