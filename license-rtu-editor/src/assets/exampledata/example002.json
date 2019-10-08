@@ -25,14 +25,6 @@
   },
   "target": {
     "refinement": [
-      {
-        "@type": "Constraint",
-        "leftOperand": "lum:swLicensor",
-        "operator": "lum:in",
-        "rightOperand": [
-          "Company A"
-        ]
-      }
     ],
     "@type": "Target"
   },

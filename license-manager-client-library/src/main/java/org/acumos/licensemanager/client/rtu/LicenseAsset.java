@@ -167,6 +167,7 @@ public class LicenseAsset {
                       resp.setRequest(request);
                       registerFuture.complete(resp);
                     } else {
+
                       RegisterAssetResponse resp = new RegisterAssetResponse();
                       // resp.setRawResponse(arg0);
                       resp.setSuccess(true);

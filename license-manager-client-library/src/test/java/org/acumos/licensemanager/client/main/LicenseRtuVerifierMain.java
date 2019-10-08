@@ -73,7 +73,11 @@ public class LicenseRtuVerifierMain {
     LicenseRtuVerifier licenseVerifier = new LicenseRtuVerifier(lumServer.toExternalForm());
     VerifyLicenseRequest verifyRequest =
         new VerifyLicenseRequest(
-            LicenseAction.DOWNLOAD, args[0], args[1], args[2], UUID.randomUUID().toString());
+            LicenseAction.valueOf(args[3]),
+            args[0],
+            args[1],
+            args[2],
+            UUID.randomUUID().toString());
     CompletableFuture<LicenseRtuVerification> licenseResPromise =
         licenseVerifier.verifyRtu(verifyRequest);
     LicenseRtuVerification licenseRes = licenseResPromise.get();
@@ -81,8 +85,7 @@ public class LicenseRtuVerifierMain {
     if (licenseRes.getApiException() != null) {
       System.err.println(licenseRes.getApiException().getMessage());
     }
-    System.out.println("deploy allowed? " + licenseRes.isAllowed(LicenseAction.DEPLOY));
-    System.out.println("download allowed? " + licenseRes.isAllowed(LicenseAction.DOWNLOAD));
+    System.out.println(args[3] + " allowed? " + licenseRes.isAllowed());
 
     System.exit(0);
   }

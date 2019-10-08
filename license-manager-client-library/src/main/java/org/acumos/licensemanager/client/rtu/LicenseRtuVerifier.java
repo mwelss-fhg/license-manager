@@ -31,6 +31,8 @@ import org.acumos.licensemanager.exceptions.RightToUseException;
 import org.acumos.lum.handler.ApiCallback;
 import org.acumos.lum.handler.ApiException;
 import org.acumos.lum.handler.AssetUsageApi;
+import org.acumos.lum.handler.JSON;
+import org.acumos.lum.model.AssetUsageResponse;
 import org.acumos.lum.model.AssetUseageRequestTopMixin;
 import org.acumos.lum.model.PutAssetUsageRequest;
 import org.acumos.lum.model.PutAssetUsageSuccessResponse;
@@ -107,9 +109,17 @@ public final class LicenseRtuVerifier implements ILicenseRtuVerifier {
             public void onFailure(
                 ApiException responseException, int arg1, Map<String, List<String>> arg2) {
               boolean allowed = false; // failed to communicate to lum
-              LicenseRtuVerification licenseRtuVerification = new LicenseRtuVerification();
+              LicenseRtuVerification licenseRtuVerification = new LicenseRtuVerification(allowed);
               licenseRtuVerification.setApiException(responseException);
-              licenseRtuVerification.addAction(request.getAction(), allowed);
+              // if 402 response then we need to have special handling to get AssetUsageResponse
+              if (responseException.getCode() == 402) {
+                AssetUsageResponse assetUsageResponse =
+                    new JSON()
+                        .deserialize(responseException.getResponseBody(), AssetUsageResponse.class);
+                licenseRtuVerification.setLumDenialResponse(assetUsageResponse);
+              }
+
+              //  assetUsageResponse.getAssetUsage().();
               completableFuture.complete(licenseRtuVerification);
             }
 
@@ -117,9 +127,8 @@ public final class LicenseRtuVerifier implements ILicenseRtuVerifier {
             public void onSuccess(
                 PutAssetUsageSuccessResponse response, int arg1, Map<String, List<String>> arg2) {
               boolean allowed = response.getUsageEntitled();
-              LicenseRtuVerification licenseRtuVerification = new LicenseRtuVerification();
+              LicenseRtuVerification licenseRtuVerification = new LicenseRtuVerification(allowed);
               licenseRtuVerification.setLumResponse(response);
-              licenseRtuVerification.addAction(request.getAction(), allowed);
               completableFuture.complete(licenseRtuVerification);
               ;
             }

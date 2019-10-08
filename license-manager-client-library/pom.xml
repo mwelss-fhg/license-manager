@@ -22,7 +22,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.acumos.license-manager</groupId>
 	<artifactId>license-manager-client-library</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.2.0-SNAPSHOT</version>
 	<name>License Manager Client Library</name>
 	<description>The License Manager Client library assists in fetching license profile templates, validating license profile and verifying that the user has the rights to use models. Developed by EST.tech.</description>
 	<properties>
@@ -41,14 +41,28 @@
 		https://nexus.acumos.org/content/repositories/releases/ -->
 	<dependencies>
 		<dependency>
+			<!-- used for accessing lum -->
 			<groupId>org.acumos.license-usage-manager</groupId>
 			<artifactId>lum-java-rest-client</artifactId>
-			<version>0.25.2</version>
+			<version>0.26.5</version>
 		</dependency>
 		<dependency>
+			<!-- used for accessing Acumos CDS -->
 			<groupId>org.acumos.common-dataservice</groupId>
 			<artifactId>cmn-data-svc-client</artifactId>
 			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<!-- for immutable rtu objects -->
+			<groupId>com.google.collections</groupId>
+			<artifactId>google-collections</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<!-- validation of license profile json -->
+			<groupId>com.networknt</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>1.0.20</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -67,16 +81,6 @@
 			<artifactId>hoverfly-java</artifactId>
 			<version>0.12.2</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.collections</groupId>
-			<artifactId>google-collections</artifactId>
-			<version>1.0-rc2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.networknt</groupId>
-			<artifactId>json-schema-validator</artifactId>
-			<version>1.0.20</version>
 		</dependency>
 	</dependencies>
 	<build>

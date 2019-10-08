@@ -22,6 +22,10 @@
 License RTU Editor Release Notes
 ============================================
 
+Version 0.0.7 10 Oct 2019
+-------------------------
+- Remove redundant property under refinements -  lum:swLicensor `ACUMOS-3553 <https://jira.acumos.org/browse/ACUMOS-3553>`_
+
 Version 0.0.6 09 Oct 2019
 -------------------------
 -  Integration changes with clio `ACUMOS-3538 <https://jira.acumos.org/browse/ACUMOS-3538>`_

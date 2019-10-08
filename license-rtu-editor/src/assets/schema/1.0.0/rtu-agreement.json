@@ -336,7 +336,6 @@
                   "lum:swPersistentId",
                   "lum:swTagId",
                   "lum:swProductName",
-                  "lum:swLicensor",
                   "lum:swCategory",
                   "lum:swCatalogId",
                   "lum:swCatalogType"

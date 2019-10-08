@@ -20,43 +20,26 @@
 
 package org.acumos.licensemanager.client.model;
 
-import com.google.common.collect.ImmutableMap;
-import java.util.EnumMap;
-import java.util.Map;
 import org.acumos.lum.handler.ApiException;
+import org.acumos.lum.model.AssetUsageDenialAssetUsageDenial;
+import org.acumos.lum.model.AssetUsageResponse;
 import org.acumos.lum.model.PutAssetUsageSuccessResponse;
 
 /** Verified that there is a right to use for specified userId and solutionID. */
 public class LicenseRtuVerification implements ILicenseRtuVerification {
 
-  /** List of allowed usages. */
-  private Map<LicenseAction, Boolean> allowedToUse =
-      new EnumMap<LicenseAction, Boolean>(LicenseAction.class);
-
   private ApiException apiException;
   private PutAssetUsageSuccessResponse lumResponse;
+  private AssetUsageResponse lumDenialResponse;
+  private final boolean allowedToUse;
 
-  /**
-   * Add {@link org.acumos.licensemanager.client.model.LicenseAction} to be verified.
-   *
-   * @param action a {@link org.acumos.licensemanager.client.model.LicenseAction} object.
-   * @param allowed a boolean.
-   */
-  public final void addAction(final LicenseAction action, final boolean allowed) {
-    allowedToUse.put(action, allowed);
+  public LicenseRtuVerification(boolean isAllowed) {
+    allowedToUse = isAllowed;
   }
 
   @Override
-  public final Map<LicenseAction, Boolean> getAllowedToUse() {
-    return ImmutableMap.copyOf(allowedToUse);
-  }
-
-  @Override
-  public final boolean isAllowed(final LicenseAction action) {
-    if (allowedToUse.get(action) == null) {
-      return false;
-    }
-    return allowedToUse.get(action).booleanValue();
+  public final boolean isAllowed() {
+    return allowedToUse;
   }
 
   /** @param responseException if there is an LUM api exception capture that here */
@@ -77,5 +60,29 @@ public class LicenseRtuVerification implements ILicenseRtuVerification {
   /** @return the lumResponse */
   public PutAssetUsageSuccessResponse getLumResponse() {
     return lumResponse;
+  }
+
+  /** @return the lumResponse */
+  public AssetUsageResponse getLumDenialResponse() {
+    return lumDenialResponse;
+  }
+
+  /** @param response original response from LUM */
+  public void setLumDenialResponse(AssetUsageResponse response) {
+    lumDenialResponse = response;
+  }
+
+  public String getDenialReason() {
+    // if api exception not 402 code
+    if (getLumDenialResponse() == null) {
+      return getApiException().getLocalizedMessage();
+    } else {
+      String denialReasons = "";
+      for (AssetUsageDenialAssetUsageDenial denial :
+          getLumDenialResponse().getAssetUsage().getAssetUsageDenial()) {
+        denialReasons += denial.getDenialReason() + ',';
+      }
+      return denialReasons.substring(0, denialReasons.length() - 1);
+    }
   }
 }
