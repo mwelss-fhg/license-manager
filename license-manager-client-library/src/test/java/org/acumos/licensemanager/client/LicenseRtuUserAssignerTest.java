@@ -33,7 +33,6 @@ import java.util.stream.Collectors;
 import org.acumos.cds.client.CommonDataServiceRestClientMockImpl;
 import org.acumos.cds.domain.MLPRightToUse;
 import org.acumos.cds.domain.MLPUser;
-import org.acumos.licensemanager.client.rtu.LicenseAsset;
 import org.acumos.licensemanager.exceptions.RightToUseException;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -214,7 +213,7 @@ public class LicenseRtuUserAssignerTest {
 
   @Test()
   public void invalidNoRequestArgumentTest() throws RightToUseException {
-    LicenseAsset licenseSrvc = new LicenseAsset(client, LUM_SERVER, LUM_SERVER);
+    // LicenseAsset licenseSrvc = new LicenseAsset(client, LUM_SERVER, LUM_SERVER);
 
     // try {
     //   licenseSrvc.createRtu(null);

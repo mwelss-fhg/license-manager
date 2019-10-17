@@ -61,7 +61,8 @@ public class LicenseRtuVerifierTest {
       HoverflyRule.inSimulationMode(
           dsl(
               service(LUM_SERVER)
-                  .put("/api/v1/asset-usage/" + NO_AGREEMENT_DENIAL_ASSET_USAGE_ID)
+                  .put("/api/v1/asset-usage")
+                  .queryParam("assetUsageId", NO_AGREEMENT_DENIAL_ASSET_USAGE_ID)
                   .anyBody()
                   .willReturn(
                       response()
@@ -95,7 +96,8 @@ public class LicenseRtuVerifierTest {
                                   + "}"
                                   + "}")
                           .header("Content-Type", "application/json"))
-                  .put("/api/v1/asset-usage/" + ASSET_USAGE_ID)
+                  .put("/api/v1/asset-usage")
+                  .queryParam("assetUsageId", ASSET_USAGE_ID)
                   .anyBody()
                   .willReturn(
                       response()

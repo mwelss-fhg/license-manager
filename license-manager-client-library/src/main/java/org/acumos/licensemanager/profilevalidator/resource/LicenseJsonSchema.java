@@ -24,19 +24,12 @@ import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** LicenseJsonSchema class. */
 public final class LicenseJsonSchema {
-
-  /** Logger for any exception handling. */
-  private static final Logger LOGGER =
-      LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static Map<String, JsonSchema> schemaUrlToJsonSchemaMap =
       new HashMap<String, JsonSchema>();
