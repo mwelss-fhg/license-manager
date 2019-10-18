@@ -39,11 +39,13 @@ public class LicenseAssetTest {
       HoverflyRule.inSimulationMode(
           dsl(
               service(LUM_SERVER)
-                  .put("/api/v1/swid-tag/" + SWIDTAGID2)
+                  .put("/api/v1/swid-tag")
+                  .queryParam("swTagId", SWIDTAGID2)
                   .anyBody()
                   .willReturn(serverError()),
               service(LUM_SERVER)
-                  .put("/api/v1/swid-tag/" + SWIDTAGID)
+                  .put("/api/v1/swid-tag")
+                  .queryParam("swTagId", SWIDTAGID)
                   .anyBody()
                   .willReturn(success("{}", "application/json")),
               service(NEXUS_SERVER)
@@ -70,7 +72,7 @@ public class LicenseAssetTest {
     try {
       CompletableFuture<RegisterAssetResponse> responseFuture = asset.register(request);
       RegisterAssetResponse response = responseFuture.get();
-      assertEquals(response.getMessage(), "softwareRegistered");
+      assertEquals("softwareRegistered", response.getMessage());
     } catch (Exception e) {
       fail(e.getMessage());
     }
@@ -105,7 +107,7 @@ public class LicenseAssetTest {
     try {
       CompletableFuture<RegisterAssetResponse> responseFuture = asset.register(request);
       RegisterAssetResponse response = responseFuture.get();
-      assertEquals(response.getMessage(), "softwareRegistered");
+      assertEquals("softwareRegistered", response.getMessage());
       assertTrue(response.isSuccess());
     } catch (Exception e) {
       fail(e.getMessage());

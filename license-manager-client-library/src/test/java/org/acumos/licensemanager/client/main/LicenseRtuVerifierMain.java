@@ -20,7 +20,6 @@
 
 package org.acumos.licensemanager.client.main;
 
-import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -28,8 +27,6 @@ import org.acumos.licensemanager.client.model.LicenseAction;
 import org.acumos.licensemanager.client.model.LicenseRtuVerification;
 import org.acumos.licensemanager.client.model.VerifyLicenseRequest;
 import org.acumos.licensemanager.client.rtu.LicenseRtuVerifier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * License Verify Main program. Input to main program: String solutionId String userId
@@ -38,10 +35,6 @@ import org.slf4j.LoggerFactory;
  * ACUMOS_CDS_USER ACUMOS_CDS_PASSWORD
  */
 public class LicenseRtuVerifierMain {
-
-  /** Logger for any exception handling. */
-  private static final Logger LOGGER =
-      LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /** Common data service host name. Set as an environment variable ACUMOS_CDS_HOST. */
   private static final String LUM_HOSTNAME = System.getenv("LUM_HOST");

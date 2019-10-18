@@ -22,6 +22,21 @@
 License Manager Client Library Release Notes
 ============================================
 
+Version 1.3.0 17 Oct 2019
+--------------------------
+* Integration changes with LUM 0.27.1 - `ACUMOS-3082 <https://jira.acumos.org/browse/ACUMOS-3082>`_
+
+Version 1.2.0 10 Oct 2019
+--------------------------
+- LMCL - `ACUMOS-3537 <https://jira.acumos.org/browse/ACUMOS-3537>`_ ,  `ACUMOS-3553 <https://jira.acumos.org/browse/ACUMOS-3553>`_
+
+  - Class not found issues with LUM java client
+  - Handle 402 response
+  - Support single action rtu verifications - multiple lookups causing issues
+  - LicenseRtuVerifier api updates - handle isAllowed without passing
+    action again
+  - Support rtu denials from lum
+
 Version 1.1.0 01 Oct 2019
 --------------------------
 * Support to parse & validate diff versions (latest and boreas releases)
