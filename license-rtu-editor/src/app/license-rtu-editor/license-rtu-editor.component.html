@@ -56,7 +56,7 @@
   </mat-menu>
 
   <div *ngFor="let error of errors" class="rtu-ui-item error">{{error}}</div>
-  <div>
+  <div class="rtu-ui-item">
     <div class="view-select-item">
       <span style="font-weight: bold;">Select View:</span>&nbsp;
       <mat-radio-group [(ngModel)]="viewType" (change)="onChangeViewType()">
@@ -65,35 +65,40 @@
         <mat-radio-button value="SUB">Subscriber</mat-radio-button>
       </mat-radio-group>
     </div>
-    <div class="view-select-item">
-      <span style="font-weight: bold;">LUM Server:</span>&nbsp;
-      <mat-form-field class="lum-url-field">
-        <input matInput [(ngModel)]="lumServerUrl" placeholder="License Usage Manager server URL">
-      </mat-form-field>
-    </div>
   </div>
-  <div class="rtu-ui-item examples-btn-bar">
-    <button *ngIf="viewType === 'SUP'" mat-raised-button color="accent"
+  <div *ngIf="viewType === 'SUP'" class="rtu-ui-item examples-btn-bar">
+    <button mat-raised-button color="accent"
       [matMenuTriggerFor]="appMenu">
       Examples
     </button>
-    <button *ngIf="viewType === 'SUP'" mat-raised-button color="accent"
+    <button mat-raised-button color="accent"
       (click)="rtuFileImport.click()">
-      Import RTU
+      Import Agreement
     </button>
     <input hidden type="file" #rtuFileImport
-      (change)="onImportRTUFile($event);"/>
-    <button *ngIf="viewType === 'SUB'" mat-raised-button color="accent"
-      (click)="rtuLumAgreementFileImport.click()">
-      Import RTU LUM Agreement
-    </button>
-    <input hidden type="file" #rtuLumAgreementFileImport
-      (change)="onImportRTULumAgreementFile($event);"/>
+      (change)="onImportAgreementFile($event);"/>
     <button mat-raised-button (click)="resetSetup()">
       Reset
     </button>
   </div>
-  <div *ngIf="viewType === 'SUB'">
+  <div *ngIf="viewType === 'SUB'" class="rtu-ui-item examples-btn-bar">
+    <span style="font-weight: bold;">Asset Usage Agreement Source:</span>&nbsp;
+    <mat-radio-group [(ngModel)]="rtuLumAgreement.src" style="margin-right: 40px;"
+      (change)="onChangeAssetUsageAgreementSource()">
+      <mat-radio-button value="LUM">LUM</mat-radio-button>
+      &nbsp;
+      <mat-radio-button value="FILE"
+        (click)="rtuLumAgreementFileImport.click()">
+        Import from File</mat-radio-button>
+      <input hidden type="file" #rtuLumAgreementFileImport
+        (change)="onImportAssetUsageAgreementFile($event);"/>
+    </mat-radio-group>
+
+    <button mat-raised-button (click)="resetSetup()">
+      Reset
+    </button>
+  </div>
+  <div *ngIf="viewType === 'SUB'" class="rtu-ui-item">
     <mat-form-field class="lum-url-field">
       <input matInput #softwareLicensorId placeholder="Software Licensor ID *"
         value="{{rtuLumAgreement.assetUsageAgreement.softwareLicensorId}}">
@@ -102,9 +107,12 @@
       <input matInput #assetUsageAgreementId placeholder="Asset Usage Agreement ID *"
         value="{{rtuLumAgreement.assetUsageAgreement.assetUsageAgreementId}}">
     </mat-form-field>
+    <mat-form-field class="lum-url-field">
+      <input matInput [(ngModel)]="lumServerUrl" placeholder="License Usage Manager server URL *">
+    </mat-form-field>
     &nbsp;
     <button mat-raised-button color="primary"
-      [disabled]="!assetUsageAgreementId" class="save-field"
+      [disabled]="!canEnableGetRTUAgreementDataBtn()" class="save-field"
       (click)="getRTUAgreementData(softwareLicensorId.value, assetUsageAgreementId.value)">
       Get RTU LUM Agreement</button>
   </div>
@@ -113,7 +121,8 @@
     <mat-radio-group [(ngModel)]="reviewRtuAgreementChecked"
       [disabled]="!rtuLumAgreement || !rtuLumAgreement.assetUsageAgreement.agreement || !rtuLumAgreement.assetUsageAgreement.agreement"
       (change)="onChangeReviewRtuAgreement()">
-      <mat-radio-button [value]="false">Add / Edit Restrictions</mat-radio-button>
+      <mat-radio-button [disabled]="rtuLumAgreement.src == 'FILE'"
+        [value]="false">Add / Edit Restrictions</mat-radio-button>
       &nbsp;
       <mat-radio-button [value]="true">Review RTU Agreement</mat-radio-button>
     </mat-radio-group>
@@ -127,17 +136,28 @@
   </json-schema-form>
 
   <div class="save-container">
-    <h4>Save / Download</h4>
-    <mat-form-field class="lum-url-field">
-      <input matInput [(ngModel)]="userId" placeholder="User ID *"
-        (input)="onChangeUserId()">
-    </mat-form-field>
-    <div>
+    <h4>Save / Download Asset Usage Agreement</h4>
+    <div *ngIf="viewType === 'SUP'">
       <button mat-raised-button color="primary"
-        [disabled]="!isValid || !lumServerUrl"
-        (click)="saveRTU()">Save</button>
-      <button mat-raised-button color="primary" style="margin-left: 10px;"
-        [disabled]="!isValid" (click)="downloadRTU()">Download</button>
+        [disabled]="!isValid" (click)="downloadRTU()" style="margin-left: 10px;">
+        Download</button>
     </div>
+
+    <div *ngIf="viewType === 'SUB'">
+      <div>
+        <span style="font-weight: bold;">User ID:</span>&nbsp;
+        <mat-form-field class="lum-url-field">
+          <input matInput [(ngModel)]="userId" placeholder="User ID *"
+            (input)="onChangeUserId()">
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button color="primary"
+          [disabled]="!canEnableSaveBtn()"
+          (click)="saveRTU()">Save</button>
+      </div>
+
+    </div>
+
   </div>
 </mat-card>

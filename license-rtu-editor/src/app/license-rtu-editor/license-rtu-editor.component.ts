@@ -30,6 +30,11 @@ export enum ViewType {
   SUB = 'SUB' // subscriber
 }
 
+export enum AssetUsageAgreementSource {
+  LUM = 'LUM', // LUM
+  FILE = 'FILE' // FILE
+}
+
 @Component({
   selector: 'app-license-rtu-editor',
   templateUrl: './license-rtu-editor.component.html',
@@ -146,7 +151,10 @@ export class LicenseRtuEditorComponent implements OnInit {
     const me = this;
     me.errors = [];
     me.rtuFormInput = undefined;
+    const rtuLumAgreementSrc = (me.rtuLumAgreement && me.rtuLumAgreement.src) 
+      ? me.rtuLumAgreement.src : 'LUM';
     me.rtuLumAgreement = {
+      src: rtuLumAgreementSrc,
       assetUsageAgreement: {}
     };
     if (me.softwareLicensorIdEl) {
@@ -208,12 +216,16 @@ export class LicenseRtuEditorComponent implements OnInit {
     this.resetSetup();
   }
 
+  onChangeAssetUsageAgreementSource() {
+    this.resetData();
+  }
+
   onChangeReviewRtuAgreement() {
     this.applyRTULumAgreement(this.reviewRtuAgreementChecked);
   }
 
   onChangeUserId() {
-    this.isValidFn(this.rtuEditorForm.jsf.isValid);
+    this.canEnableSaveBtn();
   }
 
   showExample(id: string) {
@@ -226,7 +238,7 @@ export class LicenseRtuEditorComponent implements OnInit {
     });
   }
 
-  onImportRTUFile(event: any) {
+  onImportAgreementFile(event: any) {
     if (!event || !event.target || !event.target.files) {
       return;
     }
@@ -240,19 +252,10 @@ export class LicenseRtuEditorComponent implements OnInit {
         me.rtuEditorForm.formInitialized = false;
         try {
           const rtu = JSON.parse(dataInput);
-          let options;
-          if (me.viewType === ViewType.SUB) {
-            options = {
-              defautWidgetOptions: {
-                // For readonly form
-                addable: false,
-                removable: false,
-                readonly: true
-              }
-            };
-          }
           me.resetData();
-          me.doSetup(rtu, options);
+          me.doSetup(rtu, {
+            isExampleData: true
+          });
           // reset input file field value so that attempting
           // to import same file result in change notification
           event.target.value = '';
@@ -265,7 +268,7 @@ export class LicenseRtuEditorComponent implements OnInit {
     }
   }
 
-  onImportRTULumAgreementFile(event: any) {
+  onImportAssetUsageAgreementFile(event: any) {
     if (!event || !event.target || !event.target.files) {
       return;
     }
@@ -278,41 +281,14 @@ export class LicenseRtuEditorComponent implements OnInit {
         const dataInput = e.target.result;
         me.rtuEditorForm.formInitialized = false;
         try {
-          me.resetData();
+          // me.resetData();
           const agreementData = JSON.parse(dataInput);
 
-          // initialize agreementRestriction
-          //   - copy agreement.uid
-          //   - copy permission and prohibitions from agreement
-          if (agreementData 
-              && agreementData.assetUsageAgreement) {
-            const usageAgreement = agreementData.assetUsageAgreement;
-            const agreement: any = usageAgreement.agreement;
+          Object.assign(me.rtuLumAgreement, agreementData);
+          // me.rtuLumAgreement.src = AssetUsageAgreementSource.FILE;
+          me.reviewRtuAgreementChecked = true;
+          me.applyRTULumAgreement(true);
 
-            let agreementRestriction: any = usageAgreement.agreementRestriction;
-            if (!agreementRestriction) {
-              agreementRestriction = me.service.getRtuRestrictionsInitialData();
-              usageAgreement.agreementRestriction = agreementRestriction;
-              agreementRestriction.uid = agreement.uid;
-            }
-            if (!agreementRestriction.permission
-                && agreement.permission) {
-              agreementRestriction.permission = [];
-              for (let permissionItem of agreement.permission) {
-                agreementRestriction.permission.push(JSON.parse(JSON.stringify(permissionItem)));
-              }
-            }
-            if (!agreementRestriction.prohibition
-                && agreement.prohibition) {
-              agreementRestriction.prohibition = [];
-              for (let prohibitionItem of agreement.prohibition) {
-                agreementRestriction.prohibition.push(JSON.parse(JSON.stringify(prohibitionItem)));
-              }
-            }
-          }
-
-          me.rtuLumAgreement = agreementData;
-          me.applyRTULumAgreement();
           // reset input file field value so that attempting
           // to import same file result in change notification
           event.target.value = '';
@@ -333,17 +309,14 @@ export class LicenseRtuEditorComponent implements OnInit {
     if (showReviewRtuAgreement
         && data
         && data.agreement) {
-      let options: any;
-      if (me.viewType === ViewType.SUB) {
-        options = {
-          defautWidgetOptions: {
-            // For readonly form
-            addable: false,
-            removable: false,
-            readonly: true
-          }
-        };
-      }
+      const options: any = {
+        defautWidgetOptions: {
+          // For readonly form
+          addable: false,
+          removable: false,
+          readonly: true
+        }
+      };
       me.doSetup(data.agreement, options);
     } else if (data
         && data.agreementRestriction) {
@@ -355,36 +328,48 @@ export class LicenseRtuEditorComponent implements OnInit {
 
   isValidFn(isValid: boolean) {
     const me = this;
-    if (!isValid) {
-      // if the form data not valid then set state
-      // and return
-      me.isValid = isValid;
-      return;
-    }
-    if (!me.userId) {
-      me.isValid = false;
-      return;
-    }
-    // if form is valid and viewType is SUB
-    // then check for softwareLicensorId and assetUsageAgreementId values
-    if (me.viewType === ViewType.SUB) {
+    me.isValid = isValid;
+  }
 
-      if (me.reviewRtuAgreementChecked) {
-        me.isValid = false;
-        return;
+  canEnableGetRTUAgreementDataBtn() {
+    const me = this;
+    if (me.viewType === ViewType.SUB
+      && me.rtuLumAgreement.src === AssetUsageAgreementSource.LUM) {
+
+      if (me.lumServerUrl
+          && me.softwareLicensorIdEl
+          && me.softwareLicensorIdEl.nativeElement.value
+          && me.assetUsageAgreementIdEl
+          && me.assetUsageAgreementIdEl.nativeElement.value) {
+        return true;
       }
+    }
+    return false;
+  }
+
+  /**
+   * Disabled state for Save button
+   * returns true, if
+   *   - no lumServerUrl
+   *   - form is not valid
+   *   - no userId
+   */
+  canEnableSaveBtn() {
+    const me = this;
+    if (me.rtuLumAgreement.src === AssetUsageAgreementSource.LUM
+      && me.reviewRtuAgreementChecked) {
+      return false;
+    }
+    if (me.lumServerUrl && me.isValid && me.userId) {
 
       if (me.softwareLicensorIdEl
           && me.softwareLicensorIdEl.nativeElement.value
           && me.assetUsageAgreementIdEl
           && me.assetUsageAgreementIdEl.nativeElement.value) {
-        me.isValid = true;
-      } else {
-        me.isValid = false;
+        return true;
       }
-    } else {
-      me.isValid = isValid;
     }
+    return false;
   }
 
   @ViewChild(JsonSchemaFormComponent, { static: false })
@@ -409,12 +394,6 @@ export class LicenseRtuEditorComponent implements OnInit {
   }
 
   saveRTU() {
-    // perform save operation based on the
-    // current rendered state of the Editor
-    // - RTU agreement -> asset-usage-agreement
-    //   - prepare IDs and prepare request payload
-    // - RTU restriction -> asset-usage-agreement-restrictions
-    //   - extract the IDs and prepare request payload
     const me = this;
     const formData = me.getLicenseRtuDataToSave();
     me.putData(formData);
@@ -443,11 +422,9 @@ export class LicenseRtuEditorComponent implements OnInit {
     // add wrapper object
     const me = this;
 
-    if (me.rtuLumAgreement
-        && me.rtuLumAgreement.assetUsageAgreement
-        && me.rtuLumAgreement.assetUsageAgreement.agreement) {
+    if (me.viewType === ViewType.SUB
+        && me.rtuLumAgreement.src === 'LUM') {
 
-      // Object.assign({}, me.rtuLumAgreement);
       const assetUsageAgreement = me.rtuLumAgreement.assetUsageAgreement;
       const reqPayload = {
         assetUsageAgreement: {
@@ -545,7 +522,7 @@ export class LicenseRtuEditorComponent implements OnInit {
     // save as json
     // const mimeType = { type: 'application/json' };
     const data = JSON.stringify(formData);
-    const fileName = 'rtu-agreement.json';
+    const fileName = 'rtu-asset-usage-agreement.json';
 
     this.downloadFile(data, undefined, fileName);
 
@@ -555,9 +532,7 @@ export class LicenseRtuEditorComponent implements OnInit {
     const me = this;
     let url = me.lumServerUrl + '/api/v1/asset-usage-agreement';
 
-    if (me.rtuLumAgreement
-        && me.rtuLumAgreement.assetUsageAgreement
-        && me.rtuLumAgreement.assetUsageAgreement.agreement) {
+    if (me.rtuLumAgreement.src === AssetUsageAgreementSource.LUM) {
       // currently showing RTU LUM agreement and
       // requesting to save restrictions
       url += '-restriction';
@@ -583,13 +558,6 @@ export class LicenseRtuEditorComponent implements OnInit {
         me.showSnackBar('Failed to save RTU document to LUM server', 'Retry');
       } else {
         me.showSnackBar('RTU document saved to LUM server');
-
-        // download response for agreementId reference
-        const rtuSaveResp = JSON.stringify(data);
-        const fileName = 'rtu-lum-agreement.json';
-
-        me.downloadFile(rtuSaveResp, undefined, fileName);
-
       }
       return data;
     } catch (err) {
@@ -617,7 +585,40 @@ export class LicenseRtuEditorComponent implements OnInit {
       if (!data || data.error) {
         me.showSnackBar('Failed to fetch RTU document from LUM server', 'Retry');
       } else {
-        me.rtuLumAgreement = data;
+
+        const agreementData = data;
+
+        // initialize agreementRestriction
+        //   - copy agreement.uid
+        //   - copy permission and prohibitions from agreement
+        if (agreementData
+            && agreementData.assetUsageAgreement) {
+          const usageAgreement = agreementData.assetUsageAgreement;
+          const agreement: any = usageAgreement.agreement;
+
+          let agreementRestriction: any = usageAgreement.agreementRestriction;
+          if (!agreementRestriction) {
+            agreementRestriction = me.service.getRtuRestrictionsInitialData();
+            usageAgreement.agreementRestriction = agreementRestriction;
+            agreementRestriction.uid = agreement.uid;
+          }
+          if (!agreementRestriction.permission
+              && agreement.permission) {
+            agreementRestriction.permission = [];
+            for (const permissionItem of agreement.permission) {
+              agreementRestriction.permission.push(JSON.parse(JSON.stringify(permissionItem)));
+            }
+          }
+          if (!agreementRestriction.prohibition
+              && agreement.prohibition) {
+            agreementRestriction.prohibition = [];
+            for (const prohibitionItem of agreement.prohibition) {
+              agreementRestriction.prohibition.push(JSON.parse(JSON.stringify(prohibitionItem)));
+            }
+          }
+        }
+
+        Object.assign(me.rtuLumAgreement, agreementData);
         me.applyRTULumAgreement();
       }
     } catch (err) {
