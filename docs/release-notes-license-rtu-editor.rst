@@ -22,26 +22,28 @@
 License RTU Editor Release Notes
 ============================================
 
-Version 0.1.0 17 Oct 2019
+Version 0.1.0 23 Oct 2019
 -------------------------
 - RTU editor changes for Supplier/Subscriber - `ACUMOS-3115 <https://jira.acumos.org/browse/ACUMOS-3115>`_
 
   - As a Supplier, I can
 
-    - select / apply pre-defined RTU agreement examples
-    - import / apply sample RTU agreement from a file
-    - download RTU agreement editor changes to a file
-    - save RTU agreement to a LUM server and receive/download
-      RTU LUM agreement (asset usage agreement) from LUM
+    - select / apply pre-defined ODRL RTU agreement examples
+    - import / apply sample ODRL RTU agreement from a file
+    - Use RTU editor to create RTU LUM Asset Usage Agreement and
+      download it to local file system
 
   - As a Subscriber, I can
 
-    - import / apply RTU LUM agreement from a file
-    - fetch RTU LUM agreement from LUM server
-    - review (READ-ONLY) agreement from the RTU LUM agreement
-    - add / edit restrictions to RTU LUM agreement
-    - download RTU LUM agreement (restrictions) changes to a file
-    - save restrictions (of RTU LUM agreement) to LUM server
+    - import / apply RTU LUM Asset Usage agreement from a file
+
+      - review ODRL RTU agreement in READ-ONLY mode and
+        save to LUM server
+
+    - fetch RTU LUM Asset Usage agreement from LUM server
+
+      - add / edit restrictions
+      - save restrictions (of RTU LUM agreement) to LUM server
 
   - schema changes - v1.0.1
 
@@ -49,12 +51,13 @@ Version 0.1.0 17 Oct 2019
       RTU agreement and restrictions schema
     - used the value of "schemaType" to identify respective layout
     - added new schema for agreement "restrictions"
+    - replaced / removed 'dateTime' as only 'date' would be supported
 
   - layout changes - v1.0.1
 
     - added layout for RTU agreement restrictions fields
 
-- Added field to submit userId
+- Added field to submit 'userId' while saving to LUM server
 - Subscriber > initialize restriction uid, permission and
   prohibition from respective agreement fields
 

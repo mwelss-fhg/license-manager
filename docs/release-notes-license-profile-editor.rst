@@ -22,6 +22,20 @@
 License Profile Editor Release Notes
 ============================================
 
+Version 0.0.7 23 Oct 2019
+-------------------------
+- License Profile Editor UX fixes
+  `ACUMOS-3546 <https://jira.acumos.org/browse/ACUMOS-3546>`_
+  `ACUMOS-3547 <https://jira.acumos.org/browse/ACUMOS-3547>`_
+  `ACUMOS-3548 <https://jira.acumos.org/browse/ACUMOS-3548>`_
+
+  - Title change as per content / action
+    - Create New License -OR- Modify License
+  - Sticky title bar
+  - Form fields to span across the page to avoid
+    blank space
+  - Bottom button bar as per Acumos UX
+
 Version 0.0.6 09 Oct 2019
 -------------------------
 - Integration changes with clio `ACUMOS-3538 <https://jira.acumos.org/browse/ACUMOS-3538>`_
