@@ -330,10 +330,10 @@
                     "default": "count",
                     "enum": [
                       "count",
-                      "dateTime"
+                      "date"
                     ],
                     "examples": [
-                      "dateTime"
+                      "date"
                     ],
                     "pattern": "^(.*)$"
                   },
@@ -380,8 +380,7 @@
                         "default": "xsd:integer",
                         "enum": [
                           "xsd:integer",
-                          "xsd:date",
-                          "xsd:dateTime"
+                          "xsd:date"
                         ],
                         "examples": [
                           "xsd:date"
