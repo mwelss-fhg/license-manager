@@ -23,7 +23,19 @@
   */
  @import "../../theme.scss";
 
- .license-profile-editor {
+.sticky-toolbar {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+}
+
+.version {
+  font-size: 12px;
+  color: #bbbbbb;
+  padding-left: 5px;
+}
+
+.license-profile-editor {
 
   .mat-raised-button {
     color: #2f2f2f;
@@ -32,10 +44,10 @@
     padding: 0px 20px 0px 20px;
   }
 
-  .version {
-    font-size: 12px;
-    color: #bbbbbb;
-    padding-left: 5px;
+  .content-card {
+    margin: 80px 16px 0 16px;
+    width: 94%;
+    max-width: initial;
   }
 
   .error {
@@ -47,6 +59,13 @@
 
   .close {
     cursor: pointer;
+  }
+
+  .bottom-button-bar {
+    background-color: #e5e5e5;
+    display: flex;
+    margin-top: 20px;
+    padding: 20px;
   }
 
 }
@@ -97,10 +116,6 @@
 
 .mat-raised-button.mat-primary:hover {
   background-color: #4f147a;
-}
-
-.mat-raised-button.btn-cancel {
-  margin-left: 10px;
 }
 
 .mat-raised-button.btn-primary {
