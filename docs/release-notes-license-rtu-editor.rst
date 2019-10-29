@@ -22,6 +22,10 @@
 License RTU Editor Release Notes
 ============================================
 
+Version 0.1.1 29 Oct 2019
+-------------------------
+- Fix to handle nested array types (like refinements, Constraints etc.)  - `ACUMOS-3610 <https://jira.acumos.org/browse/ACUMOS-3610>`_
+
 Version 0.1.0 23 Oct 2019
 -------------------------
 - RTU editor changes for Supplier/Subscriber - `ACUMOS-3115 <https://jira.acumos.org/browse/ACUMOS-3115>`_

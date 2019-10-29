@@ -76,7 +76,7 @@
         },
         {
           "@type": "Constraint",
-          "leftOperand": "dateTime",
+          "leftOperand": "date",
           "operator": "lt",
           "rightOperand": {
             "@value": "01-01-2020",
@@ -94,7 +94,7 @@
       "constraint": [
         {
           "@type": "Constraint",
-          "leftOperand": "dateTime",
+          "leftOperand": "date",
           "operator": "lt",
           "rightOperand": {
             "@value": "01-01-2020",

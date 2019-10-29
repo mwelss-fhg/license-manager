@@ -54,6 +54,7 @@
                 "key": "assignee.refinement",
                 "type": "array",
                 "listItems": 0,
+                "maxItems": 1,
                 "items": [
                     {
                         "key": "assignee.refinement[].@type",
