@@ -49,15 +49,18 @@ Version 1.1.0 01 Oct 2019
 Version 1.0.0 23 Sept 2019
 ---------------------------
 
-* Adding rtuRequired flag to profile to activate lum entitlement requirement during software registration `ACUMOS-3458 <https://jira.acumos.org/browse/ACUMOS-3458>`_
-  New api 
+* Adding rtuRequired flag to profile to activate lum entitlement requirement during
+  software registration `ACUMOS-3458 <https://jira.acumos.org/browse/ACUMOS-3458>`_
+  New api
   org.acumos.licensemanager.client.rtu.LicenseAsset
-    - register software with LUM  `ACUMOS-3339 <https://jira.acumos.org/browse/ACUMOS-3339>`_
-  org.acumos.licensemanager.client.rtu.LicenseRtuVerifier
+
+    - register software with LUM `ACUMOS-3339 <https://jira.acumos.org/browse/ACUMOS-3339>`_
+      org.acumos.licensemanager.client.rtu.LicenseRtuVerifier
     - verfiyRtu software with LUM  `ACUMOS-3228 <https://jira.acumos.org/browse/ACUMOS-3228>`_
-* New dependency org.acumos.license-usage-manager:lum:java-rest-client 
+
+* New dependency org.acumos.license-usage-manager:lum:java-rest-client
 * Updatd CDS dependency to 3.0.0
-* Java 11 support 
+* Java 11 support
 * Removed RTU creation APIs -- LUM agreement api will be used to create rtu
     org.acumos.licensemanager.client.LicenseCreator
     org.acumos.licensemanager.client.model.CreatedRtu
@@ -65,7 +68,8 @@ Version 1.0.0 23 Sept 2019
     org.acumos.licensemanager.client.model.ICreatedRtuResponse
     org.acumos.licensemanager.client.model.ILicenseCreator
 * Renamed APIs
-    org.acumos.licensemanager.client.LicenseVerifier -> org.acumos.licensemanager.client.rtu.LicenseRtuVerifier
+    org.acumos.licensemanager.client.LicenseVerifier ->
+    org.acumos.licensemanager.client.rtu.LicenseRtuVerifier
 * Updated classes
   org.acumos.licensemanager.client.model.BaseLicenseRequest
   org.acumos.licensemanager.client.model.ICommonLicenseRequest
