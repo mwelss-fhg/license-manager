@@ -1,10 +1,10 @@
 ---
 distribution_type: container
-container_release_tag: 0.1.0
+container_release_tag: 0.1.1
 container_pull_registry: nexus3.acumos.org:10004
 container_push_registry: nexus3.acumos.org:10002
 project: license-manager
-ref: 263a61b0038aa24543886184b03425acd6289d67
+ref: 801ae1f467709edcc5dea3b62522b4c6e435c947
 containers:
     - name: license-rtu-editor
-      version: 0.1.0
+      version: 0.1.1
