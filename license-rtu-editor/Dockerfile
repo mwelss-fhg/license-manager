@@ -38,12 +38,6 @@ RUN npm run ci-test
 # based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:1.17-alpine
 
-## Copy our default nginx config
-COPY nginx/default.conf /etc/nginx/conf.d/
-
-## Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
-
 ## From 'build-stage' stage, copy over the artifacts in dist folder to default nginx public folder
 COPY --from=build-stage /app/dist/ /usr/share/nginx/html
 

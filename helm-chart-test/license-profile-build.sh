@@ -1,3 +1,4 @@
+
 # ===============LICENSE_START================================================
 # Acumos Apache-2.0
 # ============================================================================
@@ -7,39 +8,18 @@
 #  under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-# 
+
 #       http://www.apache.org/licenses/LICENSE-2.0
-# 
+
 #  This file is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #  ===============LICENSE_END==================================================
 
-server {
-
-  listen 80;
-
-  sendfile on;
-
-  default_type application/octet-stream;
+## build in minikube docker instance
+eval $(minikube -p acumos-license docker-env)
+cd ../license-profile-editor
+docker build -t acumos/license-profile-editor:latest .
 
 
-  gzip on;
-  gzip_http_version 1.1;
-  gzip_disable      "MSIE [1-6]\.";
-  gzip_min_length   1100;
-  gzip_vary         on;
-  gzip_proxied      expired no-cache no-store private auth;
-  gzip_types        text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-  gzip_comp_level   9;
-
-
-  root /usr/share/nginx/html;
-
-
-  location / {
-    try_files $uri $uri/ /index.html =404;
-  }
-
-}

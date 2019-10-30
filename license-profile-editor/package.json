@@ -1,6 +1,6 @@
 {
   "name": "license-profile-editor",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
     "ng": "ng",
     "prestart": "npm run prebuild && cp -R ../license-manager-client-library/src/main/resources/schema src/assets",
@@ -14,7 +14,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "ci-test": "ng test --code-coverage --watch=false --browsers=ChromeHeadlessNoSandbox",
-    "ci-build": "ng build --prod --no-progress"
+    "ci-build": "ng build --prod --no-progress",
+    "build-stats": "ng build --stats-json",
+    "view-stats":  "npx webpack-bundle-analyzer@latest ./dist/license-profile-editor/stats-es2015.json"
+
   },
   "private": true,
   "dependencies": {
