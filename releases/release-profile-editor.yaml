@@ -1,10 +1,10 @@
 ---
 distribution_type: container
-container_release_tag: 0.0.7
+container_release_tag: 0.0.8
 container_pull_registry: nexus3.acumos.org:10004
 container_push_registry: nexus3.acumos.org:10002
 project: license-manager
-ref: 263a61b0038aa24543886184b03425acd6289d67
+ref: 9afed0b443155b515675138947aa0f2f548c6f50
 containers:
     - name: license-profile-editor
-      version: 0.0.7
+      version: 0.0.8
