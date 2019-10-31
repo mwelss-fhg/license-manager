@@ -257,7 +257,7 @@ public class LicenseAsset {
    */
   public final CompletableFuture<LicenseRtuVerification> verifyRtu(
       final VerifyLicenseRequest request) throws RightToUseException {
-    return new LicenseRtuVerifier(lumServer).verifyRtu(request);
+    return new LicenseRtuVerifier(dataClient, lumServer).verifyRtu(request);
   }
 
   private CompletableFuture<List<SWIDBodySwCatalogs>> addCatalogsToSwidBody(

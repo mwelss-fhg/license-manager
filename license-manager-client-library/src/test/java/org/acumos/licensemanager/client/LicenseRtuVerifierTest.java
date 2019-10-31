@@ -29,10 +29,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import io.specto.hoverfly.junit.rule.HoverflyRule;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import org.acumos.cds.client.CommonDataServiceRestClientMockImpl;
+import org.acumos.cds.domain.MLPCatalog;
 import org.acumos.licensemanager.client.model.LicenseAction;
 import org.acumos.licensemanager.client.model.LicenseRtuVerification;
 import org.acumos.licensemanager.client.model.VerifyLicenseRequest;
@@ -54,7 +57,7 @@ public class LicenseRtuVerifierTest {
   private static final String ASSET_USAGE_ID = UUID.randomUUID().toString();
   private static final String NO_AGREEMENT_DENIAL_ASSET_USAGE_ID = UUID.randomUUID().toString();
 
-  // private class MockDatabaseClient extends CommonDataServiceRestClientMockImpl {}
+  private class MockDatabaseClient extends CommonDataServiceRestClientMockImpl {}
 
   @ClassRule
   public static HoverflyRule hoverflyRule =
@@ -114,6 +117,35 @@ public class LicenseRtuVerifierTest {
                           .header("Content-Type", "application/json"))));
 
   @Test
+  public void licenseVerifyDownloadUsePrepublish()
+      throws InterruptedException, ExecutionException, RightToUseException {
+
+    boolean rtuFlag;
+    LicenseAction licenseAction = LicenseAction.DOWNLOAD;
+    String loggedInUserId = "test";
+
+    // not published solution
+    MockDatabaseClient mockCDSApi = new MockDatabaseClient();
+    List<MLPCatalog> cats = new ArrayList<MLPCatalog>();
+    mockCDSApi.setSolutionCatalogs(cats);
+
+    VerifyLicenseRequest licenseDownloadRequest =
+        new VerifyLicenseRequest(
+            licenseAction, SOLUTION_ID, REVISION_ID, loggedInUserId, ASSET_USAGE_ID);
+    licenseDownloadRequest.setAction(licenseAction);
+    LicenseRtuVerifier licenseVerifier = new LicenseRtuVerifier(mockCDSApi, LUM_SERVER);
+    CompletableFuture<LicenseRtuVerification> verifyUserRTU =
+        licenseVerifier.verifyRtu(licenseDownloadRequest);
+
+    LicenseRtuVerification verification = verifyUserRTU.get();
+    // returns true or false if rtu exists
+    rtuFlag = verification.isAllowed();
+
+    assertTrue("download is allowed", rtuFlag);
+    assertFalse("isPublished", verification.isPublished());
+  }
+
+  @Test
   public void licenseVerifyDownloadUse()
       throws InterruptedException, ExecutionException, RightToUseException {
 
@@ -121,11 +153,17 @@ public class LicenseRtuVerifierTest {
     LicenseAction licenseAction = LicenseAction.DOWNLOAD;
     String loggedInUserId = "test";
 
+    // published solution
+    MockDatabaseClient mockCDSApi = new MockDatabaseClient();
+    List<MLPCatalog> cats = new ArrayList<MLPCatalog>();
+    cats.add(new MLPCatalog("PB", true, "Catalog", "url", "test"));
+    mockCDSApi.setSolutionCatalogs(cats);
+
     VerifyLicenseRequest licenseDownloadRequest =
         new VerifyLicenseRequest(
             licenseAction, SOLUTION_ID, REVISION_ID, loggedInUserId, ASSET_USAGE_ID);
     licenseDownloadRequest.setAction(licenseAction);
-    LicenseRtuVerifier licenseVerifier = new LicenseRtuVerifier(LUM_SERVER);
+    LicenseRtuVerifier licenseVerifier = new LicenseRtuVerifier(mockCDSApi, LUM_SERVER);
     CompletableFuture<LicenseRtuVerification> verifyUserRTU =
         licenseVerifier.verifyRtu(licenseDownloadRequest);
 
@@ -133,16 +171,20 @@ public class LicenseRtuVerifierTest {
     // returns true or false if rtu exists
     rtuFlag = verification.isAllowed();
     assertTrue("download is allowed", rtuFlag);
+    assertTrue("isPublished", verification.isPublished());
   }
 
   @Test
   public void licenseVerifyDownloadDeniedUse()
       throws InterruptedException, ExecutionException, RightToUseException {
-
     boolean rtuFlag;
     LicenseAction licenseAction = LicenseAction.DOWNLOAD;
     String loggedInUserId = "test";
-
+    // published solution
+    MockDatabaseClient mockCDSApi = new MockDatabaseClient();
+    List<MLPCatalog> cats = new ArrayList<MLPCatalog>();
+    cats.add(new MLPCatalog("PB", true, "Catalog", "url", "test"));
+    mockCDSApi.setSolutionCatalogs(cats);
     VerifyLicenseRequest licenseDownloadRequest =
         new VerifyLicenseRequest(
             licenseAction,
@@ -151,7 +193,7 @@ public class LicenseRtuVerifierTest {
             loggedInUserId,
             NO_AGREEMENT_DENIAL_ASSET_USAGE_ID);
     licenseDownloadRequest.setAction(licenseAction);
-    LicenseRtuVerifier licenseVerifier = new LicenseRtuVerifier(LUM_SERVER);
+    LicenseRtuVerifier licenseVerifier = new LicenseRtuVerifier(mockCDSApi, LUM_SERVER);
     CompletableFuture<LicenseRtuVerification> verifyUserRTU =
         licenseVerifier.verifyRtu(licenseDownloadRequest);
 
@@ -175,5 +217,6 @@ public class LicenseRtuVerifierTest {
     assertEquals(
         "asset-usage-agreement not found for swTagId(8d3f8eb6-97bf-4e47-a236-79cc05cb87d8)",
         denial.get(0).getDenialReason());
+    assertTrue("isPublished", verification.isPublished());
   }
 }

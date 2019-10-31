@@ -22,6 +22,10 @@
 License Manager Client Library Release Notes
 ============================================
 
+Version 1.4.1 31 Oct 2019
+--------------------------
+* Prepublish exclusion from LUM since software is not registered - `ACUMOS-3651 <https://jira.acumos.org/browse/ACUMOS-3651>`_
+
 Version 1.4.0 23 Oct 2019
 --------------------------
 * Integration changes with LUM 0.28.0 - actionable rtu denial messages - `ACUMOS-3601 <https://jira.acumos.org/browse/ACUMOS-3601>`_

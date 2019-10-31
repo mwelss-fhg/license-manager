@@ -24,6 +24,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import org.acumos.cds.client.ICommonDataServiceRestClient;
 import org.acumos.licensemanager.client.model.ILicenseRtuVerifier;
 import org.acumos.licensemanager.client.model.LicenseRtuVerification;
 import org.acumos.licensemanager.client.model.VerifyLicenseRequest;
@@ -53,9 +54,13 @@ public final class LicenseRtuVerifier implements ILicenseRtuVerifier {
 
   private String lumServer;
 
+  private ICommonDataServiceRestClient cdsClient;
+
   /** @param lumServer base url for lum */
-  public LicenseRtuVerifier(String lumServer) {
+  public LicenseRtuVerifier(
+      final ICommonDataServiceRestClient dataServiceClient, final String lumServer) {
     this.lumServer = lumServer;
+    this.cdsClient = dataServiceClient;
   }
 
   @Override
@@ -75,9 +80,17 @@ public final class LicenseRtuVerifier implements ILicenseRtuVerifier {
       throw new IllegalArgumentException("logged in user is not defined");
     }
 
+    // if rtu is published
+    boolean published =
+        !isEmptyList(cdsClient.getSolutionCatalogs(request.getSolutionId().toString()));
     CompletableFuture<LicenseRtuVerification> completableFuture =
         new CompletableFuture<LicenseRtuVerification>();
 
+    if (!published) {
+      LicenseRtuVerification licenseRtuVerification = new LicenseRtuVerification(true, published);
+      completableFuture.complete(licenseRtuVerification);
+      return completableFuture;
+    }
     AssetUsageApi api = new AssetUsageApi();
 
     api.getApiClient().setDebugging(true);
@@ -109,7 +122,8 @@ public final class LicenseRtuVerifier implements ILicenseRtuVerifier {
             public void onFailure(
                 ApiException responseException, int arg1, Map<String, List<String>> arg2) {
               boolean allowed = false; // failed to communicate to lum
-              LicenseRtuVerification licenseRtuVerification = new LicenseRtuVerification(allowed);
+              LicenseRtuVerification licenseRtuVerification =
+                  new LicenseRtuVerification(allowed, published);
               licenseRtuVerification.setApiException(responseException);
               // if 402 response then we need to have special handling to get AssetUsageResponse
               if (responseException.getCode() == 402) {
@@ -119,7 +133,7 @@ public final class LicenseRtuVerifier implements ILicenseRtuVerifier {
                 licenseRtuVerification.setLumDenialResponse(assetUsageResponse);
               }
 
-              //  assetUsageResponse.getAssetUsage().();
+              // assetUsageResponse.getAssetUsage().();
               completableFuture.complete(licenseRtuVerification);
             }
 
@@ -127,7 +141,8 @@ public final class LicenseRtuVerifier implements ILicenseRtuVerifier {
             public void onSuccess(
                 PutAssetUsageSuccessResponse response, int arg1, Map<String, List<String>> arg2) {
               boolean allowed = response.getUsageEntitled();
-              LicenseRtuVerification licenseRtuVerification = new LicenseRtuVerification(allowed);
+              LicenseRtuVerification licenseRtuVerification =
+                  new LicenseRtuVerification(allowed, published);
               licenseRtuVerification.setLumResponse(response);
               completableFuture.complete(licenseRtuVerification);
               ;
@@ -142,5 +157,14 @@ public final class LicenseRtuVerifier implements ILicenseRtuVerifier {
     }
 
     return completableFuture;
+  }
+
+  @SuppressWarnings("rawtypes")
+  private boolean isEmptyList(List input) {
+    boolean isEmpty = false;
+    if (null == input || 0 == input.size()) {
+      isEmpty = true;
+    }
+    return isEmpty;
   }
 }

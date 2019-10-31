@@ -33,9 +33,15 @@ public class LicenseRtuVerification implements ILicenseRtuVerification {
   private PutAssetUsageSuccessResponse lumResponse;
   private AssetUsageResponse lumDenialResponse;
   private final boolean allowedToUse;
+  private final boolean published;
 
-  public LicenseRtuVerification(boolean isAllowed) {
+  public LicenseRtuVerification(boolean isAllowed, boolean published) {
     allowedToUse = isAllowed;
+    this.published = published;
+  }
+
+  public boolean isPublished() {
+    return published;
   }
 
   @Override
