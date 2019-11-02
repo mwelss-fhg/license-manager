@@ -16,10 +16,15 @@
 #  limitations under the License.
 #  ===============LICENSE_END==================================================
 
-# image:
-#   repository: acumos/license-profile-editor
-#   tag: latest
-#   pullPolicy: Never
 
-securityContext:
-  enabled: true
+releaseName=acumos-license-test
+namespace=acumos-license-editors
+pathToLumHelmChart=../license-rtu-editor-helm-chart
+  
+helm del --purge ${releaseName}
+kubectl delete namespace ${namespace};
+kubectl wait --for=delete ns/${namespace} --timeout=60s
+
+$HELM_HOME/helm dependency build  ${pathToLumHelmChart}
+$HELM_HOME/helm install -f helm-rtu-editor.values.yaml --debug --name $releaseName  --namespace ${namespace}  ${pathToLumHelmChart}
+$HELM_HOME/helm test $releaseName
