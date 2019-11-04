@@ -35,6 +35,10 @@
   padding-left: 5px;
 }
 
+.close {
+  cursor: pointer;
+}
+
 .license-profile-editor {
 
   .mat-raised-button {
@@ -55,10 +59,6 @@
     color: #ff0000;
     font-size: 14px;
     padding: 5px 5px;
-  }
-
-  .close {
-    cursor: pointer;
   }
 
   .bottom-button-bar {
