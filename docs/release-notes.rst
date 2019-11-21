@@ -22,6 +22,10 @@
 License Manager Client Library Release Notes
 ============================================
 
+Version 1.4.2 2 Dec 2019
+--------------------------
+* Fix Logging support reduce amount of logging and use logback - `ACUMOS-3600 <https://jira.acumos.org/browse/ACUMOS-3600>`_
+
 Version 1.4.1 31 Oct 2019
 --------------------------
 * Prepublish exclusion from LUM since software is not registered - `ACUMOS-3651 <https://jira.acumos.org/browse/ACUMOS-3651>`_
