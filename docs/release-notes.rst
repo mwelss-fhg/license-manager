@@ -22,6 +22,10 @@
 License Manager Client Library Release Notes
 ============================================
 
+Version 1.4.3 2 Dec 2019
+--------------------------
+* CDS 3.1.0 upgrade
+
 Version 1.4.2 2 Dec 2019
 --------------------------
 * Fix Logging support reduce amount of logging and use logback - `ACUMOS-3600 <https://jira.acumos.org/browse/ACUMOS-3600>`_
