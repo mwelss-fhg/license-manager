@@ -24,9 +24,7 @@ License Profile Editor Release Notes
 
 Version 0.0.12 13 Jan 2020
 --------------------------
-- Adding local file backup due to corporate proxy blocking github url- `ACUMOS-3834 <https://jira.acumos.org/browse/ACUMOS-3834>`_
-- Updating angular to latest runtime
-- Update 2019 to 2020 for default year in copyright
+- Republish due to old version being published with missing asset
 
 Version 0.0.11 06 Jan 2020
 --------------------------

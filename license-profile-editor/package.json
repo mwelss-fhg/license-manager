@@ -3,9 +3,10 @@
   "version": "0.0.12",
   "scripts": {
     "ng": "ng",
-    "prestart": "npm run prebuild && cp -R ../license-manager-client-library/src/main/resources/schema src/assets",
+    "prestart": "npm run prebuild",
     "start": "ng serve",
     "prebuild": "node src/version.js",
+    "copyschemas": "cp -R ../license-manager-client-library/src/main/resources/schema src/assets",
     "build": "ng build",
     "build:elements": "ng build --prod --output-hashing none && node build-elements.ts && cp src/web-cmp.html dist/license-profile-editor/",
     "copy:iframe": "cp ../iframe-license-editor.html dist/license-profile-editor/",
