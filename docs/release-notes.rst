@@ -22,6 +22,10 @@
 License Manager Client Library Release Notes
 ============================================
 
+Version 1.5.0 28 Feb 2020
+--------------------------
+* CDS 3.1.1 upgrade
+
 Version 1.4.4 20 Feb 2020
 --------------------------
 * LicenseAsset support NexusArtifactClient - `ACUMOS-3960 <https://jira.acumos.org/browse/ACUMOS-3960>`_
