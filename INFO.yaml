@@ -7,7 +7,7 @@ project_lead: &acumos_license-management_ptl
     name: 'Michelle Martens'
     email: 'mm8916@att.com'
     company: 'ATT'
-      timezone: 'America/New_York'
+    timezone: 'America/New_York'
 primary_contact: *acumos_license-management_ptl
 issue_tracking:
     type: 'jira'
@@ -43,6 +43,22 @@ committers:
       company: 'Ericsson Software Technology'
       id: 'parag'
       timezone: 'America/New_York'
+    - name: 'Shiv Shakti'
+      email: 'shiv.shakti@est.tech'
+      company: 'Ericsson Software Technology'
+      id: 'shiv070'
+      timezone: 'India/IST'
+    - name: 'Priyadarshini Londhe'
+      email: 'londhepv@TechMahindra.com'
+      company: 'Tech Mahindra'
+      id: 'Priyadarshini'
+      timezone: 'India/IST'
+    - name: 'Shilendra Srivastava'
+      email: 'ss00638522@techmahindra.com'
+      company: 'Tech Mahindra'
+      id: 'ss00638522'
+      timezone: 'India/IST'
+      
 tsc:
     approval: ''
     changes:
