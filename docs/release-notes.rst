@@ -22,10 +22,22 @@
 ============================================
 License Manager Client Library Release Notes
 ============================================
-Version 1.5.1 06-April-2020
+Version 1.5.1 08-May-2020
 --------------------------
 * lum-java-rest-client 1.2.0 upgrade
 * New method is written in LMCL to call new LUM API to retrieve models available for Accucompose composition - `ACUMOS-3971 <https://jira.acumos.org/browse/ACUMOS-3971>`_
+* New method is written in LMCL to call existing LUM API for new RTU flow - `ACUMOS-4112 <https://jira.acumos.org/browse/ACUMOS-4112>`_
+
+license-rtu-editor:version 0.1.6  08-May-2020
+----------------------------------------------
+* option to click a reset button. - `ACUMOS-3905 <https://jira.acumos.org/browse/ACUMOS-3905>`_
+* RTU Editor:- Mandatory Fields in RTU - `ACUMOS-3904 <https://jira.acumos.org/browse/ACUMOS-3904>`_
+* RTU Editor: Quit Button(X) is required on the i-frame - `ACUMOS-4131 <https://jira.acumos.org/browse/ACUMOS-4131>`_
+
+license-profile-editor:version 0.0.13 08-May-2020
+----------------------------------------------
+* RTU Editor:- UI for License profile editor and RTU editor is not consistent.-`ACUMOS-3908 <https://jira.acumos.org/browse/ACUMOS-3908>`_
+
 
 Version 1.5.0 28 Feb 2020
 --------------------------
