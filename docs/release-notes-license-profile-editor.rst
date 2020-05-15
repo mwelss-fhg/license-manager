@@ -22,6 +22,10 @@
 License Profile Editor Release Notes
 ============================================
 
+Version 0.0.13 15 May 2020
+--------------------------
+-UI for License Profile Editor editor is not consistent- `ACUMOS-3908 <https://jira.acumos.org/browse/ACUMOS-3908>`_
+
 Version 0.0.12 13 Jan 2020
 --------------------------
 - Republish due to old version being published with missing asset
