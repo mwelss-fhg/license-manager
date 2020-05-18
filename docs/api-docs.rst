@@ -120,3 +120,80 @@ registers the software with License Usage Manager.
 
 
 Learn more in `LicenseRtuVerifier java docs <https://javadocs.acumos.org/org.acumos.license-manager/master/org/acumos/licensemanager/client/rtu/LicenseRtuVerifier.html>`_
+
+
+LicenseAsset.getEntitledSwidTagsByUser
+=====================
+
+Method fetches all the available SwidTags from LUM based on particular user.
+
+.. code-block:: java
+
+    // where cdsClient is instance of ICommonDataServiceRestClient
+    // LUM_SERVER is url of the LUM service
+    // NEXUS_SERVER is the url of the nexus service
+    LicenseAsset licenseAsset = new LicenseAsset(cdsClient, LUM_SERVER, NEXUS_SERVER);
+    String userId;
+	String action;
+	CompletableFuture<GetEntitledSwidTagsResponse> getEntitledSwidTagsFuture =
+        licenseAsset.getEntitledSwidTagsByUser(userId, action);
+    GetEntitledSwidTagsResponse response = getEntitledSwidTagsFuture.get();
+
+	
+	
+LicenseAsset.getAssetUsageAgreement
+=====================
+
+Method is used for import the data from LUM.
+
+.. code-block:: java
+
+    // where cdsClient is instance of ICommonDataServiceRestClient
+    // LUM_SERVER is url of the LUM service
+    // NEXUS_SERVER is the url of the nexus service
+    LicenseAsset licenseAsset = new LicenseAsset(cdsClient, LUM_SERVER, NEXUS_SERVER);
+    String softwareLicensorId;
+	String assetUsageAgreementId;
+	CompletableFuture<GetAssetUsageAgreementResponse> responseFuture =
+        licenseAsset.getAssetUsageAgreement(softwareLicensorId, assetUsageAgreementId);
+    GetAssetUsageAgreementResponse response = responseFuture.get();	
+
+	
+
+LicenseAsset.putAssetUsageAgreement
+=====================
+
+Method is used for export the data into LUM.
+
+.. code-block:: java
+
+    // where cdsClient is instance of ICommonDataServiceRestClient
+    // LUM_SERVER is url of the LUM service
+    // NEXUS_SERVER is the url of the nexus service
+    LicenseAsset licenseAsset = new LicenseAsset(cdsClient, LUM_SERVER, NEXUS_SERVER);
+    String softwareLicensorId;
+	String assetUsageAgreementId;
+	PutAssetUsageAgreementRequest request = new PutAssetUsageAgreementRequest();
+	CompletableFuture<PutAssetUsageAgreementResponse> responseFuture =
+        licenseAsset.putAssetUsageAgreement(softwareLicensorId, assetUsageAgreementId,request);
+    PutAssetUsageAgreementResponse response = responseFuture.get();		
+
+	
+	
+LicenseAsset.putAssetUsageAgreementRestriction
+=====================
+
+Method is used for export the data into LUM with Restriction.
+
+.. code-block:: java
+
+    // where cdsClient is instance of ICommonDataServiceRestClient
+    // LUM_SERVER is url of the LUM service
+    // NEXUS_SERVER is the url of the nexus service
+    LicenseAsset licenseAsset = new LicenseAsset(cdsClient, LUM_SERVER, NEXUS_SERVER);
+    String softwareLicensorId;
+	String assetUsageAgreementId;
+	PutAssetUsageAgreementRestrictionRequest request = new PutAssetUsageAgreementRestrictionRequest();
+	CompletableFuture<PutAssetUsageAgreementResponse> responseFuture =
+        licenseAsset.putAssetUsageAgreementRestriction(softwareLicensorId, assetUsageAgreementId,request);
+    PutAssetUsageAgreementResponse response = responseFuture.get();	

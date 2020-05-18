@@ -28,6 +28,7 @@ Version 0.1.6 15 May 2020
 - RTU Editor: Mandatory Fields in RTU- `ACUMOS-3904 <https://jira.acumos.org/browse/ACUMOS-3904>`_
 - RTU Editor: Quit Button(X) is required on the i frame- `ACUMOS-4131 <https://jira.acumos.org/browse/ACUMOS-4131>`_
 - RTU Editor:-UI for RTU editor is not consistent- `ACUMOS-3908 <https://jira.acumos.org/browse/ACUMOS-3908>`_
+- As a License Admin I want to be able to launch the RTU editor and have the ability to import/export the agreement with LUM to fill out RTU Agreement- `ACUMOS-4084 <https://jira.acumos.org/browse/ACUMOS-4084>`_
 
 Version 0.1.5 06 Jan 2020
 -------------------------

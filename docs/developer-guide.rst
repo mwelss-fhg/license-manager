@@ -30,6 +30,7 @@ The license manager client library provides a java jar to perform the following 
   - Register ML models with License Usage Manager
   - Verify entitlement with License Usage Manager
   - Support Portal back end
+  - Fetch all the available SwidTags with License Usage Manager
 
 
 How to build locally

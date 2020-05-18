@@ -31,7 +31,8 @@ The license manager client library provides a java jar to perform the following 
   - Api to Register ML models with License Usage Manager 
   - Api to Verify entitlement with License Usage Manager
   - Api to Support Portal back end
-
+  - Api to fetch all the available SwidTags with License Usage Manager
+  
 .. toctree::
        :maxdepth: 2
 
