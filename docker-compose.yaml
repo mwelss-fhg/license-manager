@@ -1,5 +1,6 @@
 # ================================================================================
 # Copyright (C) 2019 Nordix Foundation.
+# Modifications copyright (C) 2020 Tech Mahindra.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,6 +26,6 @@ services:
   licnese-rtu-editor:
     build: ./license-rtu-editor/
     # replace username/repo:tag with your name and image details
-    image: acumos/license-rtu-editor:0.1.6
+    image: acumos/license-rtu-editor:0.1.7
     ports:
       - "8092:8080"
