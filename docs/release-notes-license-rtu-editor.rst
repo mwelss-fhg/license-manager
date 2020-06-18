@@ -21,6 +21,9 @@
 ============================================
 License RTU Editor Release Notes
 ============================================
+Version 0.1.7 18 Jun 2020
+-------------------------
+- Unable to click to retrieve RTU Agreement from LUM- `ACUMOS-4158 <https://jira.acumos.org/browse/ACUMOS-4158>`_
 
 Version 0.1.6 15 May 2020
 -------------------------
