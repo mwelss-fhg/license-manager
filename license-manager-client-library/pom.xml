@@ -23,7 +23,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.acumos.license-manager</groupId>
 	<artifactId>license-manager-client-library</artifactId>
-	<version>1.5.1-SNAPSHOT</version>
+	<version>1.5.1</version>
 	<name>License Manager Client Library</name>
 	<description>The License Manager Client library assists in fetching license profile templates, validating license profile and verifying that the user has the rights to use models. Developed by EST.tech.</description>
 	<properties>
@@ -42,7 +42,6 @@
 		https://nexus.acumos.org/content/repositories/releases/ -->
 	<dependencies>
 		<dependency>
-			<!-- used for accessing lum -->
 			<groupId>org.acumos.license-usage-manager</groupId>
 			<artifactId>lum-java-rest-client</artifactId>
 			<version>1.2.0</version>
@@ -51,7 +50,7 @@
 			<!-- used for accessing Acumos CDS -->
 			<groupId>org.acumos.common-dataservice</groupId>
 			<artifactId>cmn-data-svc-client</artifactId>
-			<version>3.1.1</version>
+			<version>3.2.0-ai4eu-v1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.acumos.acumos-nexus-client</groupId>
@@ -101,6 +100,14 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<distributionManagement>
+        	<repository>
+            		<id>ai4eu-repo</id>
+            		<url>https://cicd.ai4eu-dev.eu:7443/repository/maven-releases/</url>
+        	</repository>
+    	</distributionManagement> 
+
 	<build>
 		<plugins>
 			<plugin>
