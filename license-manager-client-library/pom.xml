@@ -48,7 +48,7 @@
 		</dependency>
 		<dependency>
 			<!-- used for accessing Acumos CDS -->
-			<groupId>org.acumos.common-dataservice</groupId>
+			<groupId>ai4eu.common-dataservice</groupId>
 			<artifactId>cmn-data-svc-client</artifactId>
 			<version>3.2.0-ai4eu-v1</version>
 		</dependency>
